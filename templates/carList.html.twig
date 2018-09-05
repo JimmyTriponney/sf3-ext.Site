@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Liste des véhicules' %}
+
+{% block javascripts %}
+	<script src="{{ asset('build/js/comp.searchBar.js') }}" type="text/javascript" rel="javascript"></script>
+{% endblock %}
+
+{% block container %}
+	
+	<div class="row">
+			{{ include('includes/search.bar.html.twig', {'valueSearch': valueSearch}) }}
+	</div>
+
+	<div class="row pt-4 pb-3" id="resultMessage">
+	</div>
+	<div class="row pt-4 pb-3" id="pageResult">
+		{# Show list of all vehicles #}
+		{% for vehicle in listVh %}
+			{{ include('includes/'~typeCard~'.html.twig',{'vehicle':vehicle}) }}
+		{% endfor %}
+	</div>
+
+	<div class="row">
+		<div class="col-12">
+			{# include('includes/pagination.html.twig',{"totalRes" : nbVh}) #}
+		</div>
+	</div>
+	
+	
+{% endblock %}

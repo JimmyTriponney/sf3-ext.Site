@@ -1,0 +1,220 @@
+{% extends 'base.html.twig' %}
+
+{# Recover vehicle informations #}
+
+{# stock #}{% set stock = app.request.attributes.get("type")|lower %}
+{# Id #}{% set id = vh.iId %}
+{# Brand #}{% set brand = vh.sBrandName %}
+{# Name #}{% set name = vh.sName %}
+{# Name bis #}{% set nameB = vh.sNameBis %}
+{# Fuel #}{% set fuel = 'essence' in vh.sFuel|lower ? 'Essence' : 'diesel' in vh.sFuel|lower ? 'Diesel' : vh.sFuel %}
+{# Kilométre #}{% set km = stock == 'vn' ? '' : vh.iMileage|number_format(0, '.', ' ') %}
+{# MEC #}{% set mec = vh.sMECDate|date('d/m/Y') %}
+{# Trans #}{% set trans = 'manuel' in vh.sGearboxType|lower ? 'Manuelle' : 'Automatique' %}
+{# Price #}{% set price = vh.fTotalPrice|number_format(0, '.', ' ') %}
+{# Entity #}{% set entity = vh.sPVELibelle%}
+{# Adress entity #}{% set adress = vh.sPVEAdresse1~' '~vh.sPVEAdresse2 %}
+{# zip code entity #}{% set zip = vh.sPVECP %}
+{# city #}{% set city = vh.sPVEVille %}
+{# tel #}{% set tel = vh.sPVETelFixe[:2]~' '~vh.sPVETelFixe[2:2]~' '~vh.sPVETelFixe[4:2]~' '~vh.sPVETelFixe[6:2]~' '~vh.sPVETelFixe[8:2] %}
+{# body #}{% set body = vh.sBody %}
+{# cvTax #}{% set cvTax = vh.fHorseTax %}
+{# cvDin #}{% set cvDin = vh.fHorsePower %}
+{# cvKW #}{% set cvKw = vh.fPower %}
+{# colorOut #}{% set colorOut = vh.sCouleurExt %}
+{# colorIn #}{% set colorIn = vh.sCouleurInt %}
+{# colorMetal #}{% set colorMetal = vh.bMetallicPaint != '' ? 'Oui' : 'Non' %}
+{# Guarantee #}{% set guarantee = stock == 'vn' ? '' : vh.sGuarantee %}
+{# Guarentie length #}{% set guaranteeLen = stock == 'vn' ? '' : vh.sGuaranteeLength matches '*^\\d{2,4}[/ .-]+\\d{2}[/ .-]+\\d{2,4}$*' == 0 ? vh.sGuaranteeLength : vh.sGuaranteeLength|date('d/m/Y') %}
+{# motor cyl #}{% set motorCyl = vh.iNumberOfCylinders %}
+{# motor cyl type #}{% set motorCylType = vh.sEngineType %}
+{# motorVol #}{% set motorVol = vh.fCapacity %}
+{# WD #}{% set wd = vh.sTransmission %}
+{# MaxSpeed #}{% set maxSpeed = vh.iMaxSpeed %}
+{# acceleration time #}{% set acceleration = vh.fAccelerationTime %}
+{# seat #}{% set seat = vh.iNumberOfSeats %}
+{# length #}{% set length = vh.iLength %}
+{# width #}{% set width = vh.iWidth %}
+{# height #}{% set height = vh.iHeight %}
+{# Wheelbase #}{% set wheelBase = vh.iWheelBase %}
+{# Front tire #}{% set frontTire = vh.sFrontTires %}
+{# Rear tire #}{% set rearTire = vh.sBackTires %}
+{# Total weight #}{% set totalWeight = vh.iTotalWeight %}
+{# Empty weight #}{% set emptyWeight = vh.iEmptyWithDriverWeight %}
+{# Min chest volume #}{% set chestMin = vh.iTrunkMaxCapacity %}
+{# Max chest volume #}{% set chestMax = vh.iTrunkMinCapacity %}
+{# Playload #}{% set playload = vh.iPayload %}
+{# Roof load #}{% set roofload = vh.iRoofLoad %}
+{# Cons urban #}{% set cUrban = vh.fUrbanConsumption %}
+{# Cons extra urban #}{% set cExtra = vh.fLandConsumption %}
+{# Cons mixed #}{% set cMixed = vh.fMixedConsumption %}
+{# CO2 #}{% set co2 = vh.iCO2Emission%}
+{# Equipments #}{% set equipments = vh.aEquipmentGroups %}
+{# ref #}{% set ref = vh.sReference %}
+{# Pictures #}{% set pictures = vh.aPictures %}
+
+{% block title brand~' - '~name %}
+
+{% block container %}
+
+<div class="no-print">	
+	
+	{# header fiche #}
+	<section class="row ja-fiche-head">
+		<div class="col-12">
+			<div class="container">
+			
+				<div class="row">
+				
+					<div class="col-lg-4 col-md-6 col-12 order-lg-1">
+						<h1><span>{{ brand }}</span> {{ name }}
+						{{ nameB }}</h1>
+						<div class="ref">Référence {{ ref }}</div>
+					</div>
+					
+					<div class="col-lg-3 col-md-6 col-12 order-lg-3 mt-md-0 mt-3">
+						<div class="ja-price-header">
+							<div class="p-0">
+								{{ price }} € <span class="ja-txt-light ja-txt-1">TTC</span>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-lg-5 col-12 order-lg-2 mt-3 mt-lg-0">
+						<div class="row">
+							<div class="col-md-3 col-6 ja-txt-center mb-2 mb-md-0">
+
+								<div clas="row">
+									<div class="col mb-1 ja-txt-red-80 ja-txt-2">
+										<i class="fas fa-tint"></i>
+									</div>
+									<div class="col">
+										<div class="ja-head-info">{{ fuel }}</div>
+									</div>
+								</div>
+
+							</div>
+
+							{% if km %}
+								<div class="col-md-3 col-6 ja-txt-center mb-2 mb-md-0">
+
+									<div clas="row">
+										<div class="col mb-1 ja-txt-red-80 ja-txt-2">
+											<i class="fas fa-road"></i>
+										</div>
+										<div class="col">
+											<div class="ja-head-info">{{ km }} km</div>
+										</div>
+									</div>
+									
+								</div>
+							{% endif %}
+
+							{% if date().date|date('d/m/Y') != mec %}
+								<div class="col-md-3 col-6 ja-txt-center">
+
+									<div clas="row">
+										<div class="col mb-1 ja-txt-red-80 ja-txt-2">
+											<i class="fas fa-calendar"></i>
+										</div>
+										<div class="col">
+											<div class="ja-head-info">{{ mec }}</div>
+										</div>
+									</div>
+									
+								</div>
+							{% endif %}
+
+							<div class="col-md-3 col-6 ja-txt-center">
+
+								<div clas="row">
+									<div class="col mb-1 ja-txt-red-80 ja-txt-2">
+										<i class="fas fa-cogs"></i>
+									</div>
+									<div class="col">
+										<div class="ja-head-info">{{ trans }}</div>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			
+			</div>
+		</div>
+	</section>
+	
+	
+	{# First content #}
+	<section class="row">
+		<div class="col-12 p-0">
+			<div class="container ja-car-view p-0">
+
+				<div class="row">
+					<div class="col-12">
+						<span class="ja-back-button">
+							<i class="fas fa-angle-left"></i>
+							<a href="#" onclick="history.back()"> Retour à la liste</a>
+						</span>
+					</div>
+				</div>
+
+				<div class="row mt-2">
+				
+					{{ include('includes/car.content.html.twig') }}
+					{{ include('includes/car.contact.html.twig') }}
+					
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{# Second content #}
+	<section class="row mt-4 mb-4">
+		<div class="container">
+			<div class="col-12">
+				<div class="ja-tab-container">
+					<ul class="ja-tab-nav">
+						<li class="ja-tab-item active" data-target="fiche technique"><h2 class="ja-txt-1">Fiche technique</h2></li>
+						<li class="ja-tab-item" data-target="equipements"><h2 class="ja-txt-1">Equipements</h2></li>
+						<li class="ja-tab-item" data-target="informations"><h2 class="ja-txt-1">Informations</h2></li>
+					</ul>
+					<div class="ja-tab-content">
+						
+						<section class="ja-tab-panel active" data-target="fiche technique">
+							
+							{{ include('panel/panel.ficheTechnique.html.twig') }}
+
+						</section>
+
+						<section class="ja-tab-panel" data-target="equipements">
+							
+							{{ include('panel/panel.equipements.html.twig') }}
+
+						</section>
+						<section class="ja-tab-panel" data-target="informations">
+							
+							{{ include('panel/panel.carInformations.html.twig') }}
+
+						</section>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+
+	</section>
+
+	{{ include('panel/car.panel.essai.html.twig') }}
+	{{ include('panel/car.panel.contact.html.twig') }}
+
+</div>
+	
+{% endblock %}
+
+{% block srcfile path('carFile', {'id': id, 'type': stock}) %}
+
+{% block print %}
+	{# include('carFile.html.twig', {'vh' : vh}) #}
+{% endblock %}

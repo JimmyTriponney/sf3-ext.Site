@@ -1,0 +1,67 @@
+{# Recover elements of that vehicle #}
+{# Id #}{% set id = vehicle.iVehicleId %}
+{# Image #}{% set image = vehicle.aCVehiculeImageDTO.s_vim_nom %}
+{# Brand #}{% set brand = vehicle.sBrand %}
+{# Name #}{% set name = vehicle.sName %}
+{# Name bis #}{% set nameB = vehicle.sNameBis %}
+{# Price origin #}{% set priceOri = vehicle.fPrice %}
+{# Price #}{% set price = priceOri|number_format(0, '.', ' ') %}
+{# Fuel #}{% set fuel = 'essence' in vehicle.sFuel|lower ? 'Essence' : 'diesel' in vehicle.sFuel|lower ? 'Diesel' : vehicle.sFuel %}
+{# TransType #}{% set trans = 'manuel' in vehicle.s_veh_typtxttranstypecd2lbl|lower ? 'Manuelle' : 'Automatique' %}
+{# ColorExt #}{% set color = vehicle.sCouleurExt %}
+{# Stock #}{% set stock = vehicle.i_veh_typeconfiguration == 0 ? 'vn' : 'vo' %}
+
+<section class="col-12 col-sm-6 col-md-4 col-lg-3"><!-- col-12 col-sm-6 col-md-4 col-lg-3 -->
+	<div class="ja-prev-product-container">
+		<a href="{{ path('carcarDetails', {'type' : stock, 'id' : id}) }}" alt="{{ name }}" title="Accéder à l'annonce {{ name }}">
+			<div class="row">
+				{# Image #}
+				<figure class="col-12 ja-thumbnail">
+					<img src="{{ image }}&width=520&height=340&bCrop=1&FORMAT=2" alt="{{ name }}" title="{{ name }}"/>
+				</figure>
+			
+				{# Brand & Name #}
+				<div class="col-12 ja-header high">
+					<span><span class="ja-txt-bold ja-txt-2">{{ brand }}</span> {{ name }}</span>
+					<div class="ja-txt-1">{{ nameB }}</div>
+				</div>
+			</div>
+
+			
+			<div class="row">
+				{# Description #}
+				<div class="row ja-content">
+					<div class="col-1">
+						<i class="fas fa-tint"></i>
+					</div>
+					<div class="col-10">
+						{{ fuel|lower }}
+					</div>
+
+					
+					<div class="col-1">
+						<i class="fas fa-cogs"></i>
+					</div>
+					<div class="col-10">
+						{{ trans|lower }}
+					</div>
+					
+					<div class="col-1">
+						<i class="fas fa-paint-brush"></i>
+					</div>
+					<div class="col-10">
+						{{ color|lower }}
+					</div>
+				</div>
+
+				<div class="row ja-footer">
+					<div class="ja-corner-1">
+						<div>
+							{{ price }} € <span class="ja-txt-light ja-txt-1">TTC</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+</section>

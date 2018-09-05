@@ -1,0 +1,168 @@
+{# Recover elements of that vehicle #}
+{# Id #}{% set id = vehicle.iVehicleId %}
+{# Body #}{% set body = vehicle.sBody %}
+{# Model #}{% set model = vehicle.sModel %}
+{# Image #}{% set image = vehicle.aCVehiculeImageDTO.s_vim_nom %}
+{# Brand #}{% set brand = vehicle.sBrand %}
+{# Name #}{% set name = vehicle.sName %}
+{# Name bis #}{% set nameB = vehicle.sNameBis %}
+{# Price origin #}{% set priceOri = vehicle.fPrice %}
+{# Price #}{% set price = priceOri|number_format(0, '.', ' ') %}
+{# Fuel #}{% set fuel = 'essence' in vehicle.sFuel|lower ? 'Essence' : 'diesel' in vehicle.sFuel|lower ? 'Diesel' : vehicle.sFuel %}
+{# BodyType #}{% set bodyType = vehicle.sBody %}
+{# MEC #}{% set MEC = vehicle.d_veh_date_mec|date('d/m/Y') %}
+{# Year MEC #}{% set YearMEC = vehicle.d_veh_date_mec|date('Y') %}
+{# km #}{% set km = vehicle.i_veh_kilometre|number_format(0, '.', ' ') %}
+{# cvDin #}{% set cvDin = vehicle.f_veh_typhp %}
+{# cvTax #}{% set cvTax = vehicle.fTypTaxHp %}
+{# nbSpeed #}{% set nbSpeed = vehicle.iNumberOfGears %}
+{# TransType #}{% set trans = 'manuel' in vehicle.s_veh_typtxttranstypecd2lbl|lower ? 'Manuelle' : 'Automatique' %}
+{# ColorExt #}{% set color = vehicle.sCouleurExt %}
+{# stock #}{% set stock = app.request.attributes.get("type")|lower %}
+
+{{ dump(vehicle) }}
+
+
+<section class="ja-col-12">
+	<div class="ja-prev-product-container">
+		<a href="{{ path('carcarDetails', {'type' : stock, 'id' : id}) }}" alt="{{ name }}" title="Accéder à l'annonce {{ name }}">
+			<div class="ja-row">
+
+				{# Image #}
+				<div class="ja-col-12 ja-col-lg-3">
+					<figure class="ja-row ja-thumbnail">
+						<img src="{{ image }}&width=520&height=340&bCrop=1&FORMAT=2" alt="{{ name }}" title="{{ name }}"/>
+					</figure>
+				</div>
+
+				{# Brand & Name #}
+				<div class="ja-col-12 ja-col-lg-6">
+					
+					<div class="ja-row ja-header">
+						<span><span class="ja-txt-bold ja-txt-2">{{ brand }}</span> {{ name }}</span>
+						<div class="ja-txt-1 ja-col-12">{{ nameB }}</div>
+					</div>
+
+					<div class="ja-row ja-content">
+						{% if stock == 'vo' %}
+							{# VO #}
+							<div class="ja-col-12 ja-col-sm-6">
+
+								<div class="ja-row">
+									<div class="ja-col-1">
+										<i class="fas fa-road"></i>
+									</div>
+									<div class="ja-col-10">
+										{{ km }} km
+									</div>
+								</div>
+								
+							</div>
+						{% endif %}
+						
+						{# VN/VO #}
+						<div class="ja-col-12 ja-col-sm-6">
+
+								<div class="ja-row">
+									<div class="ja-col-1">
+										<i class="fas fa-tint"></i>
+									</div>
+									<div class="ja-col-10">
+										{{ fuel }}
+									</div>
+								</div>
+							
+						</div>
+						
+						{# VN/VO #}
+						<div class="ja-col-12 ja-col-sm-6">
+
+								<div class="ja-row">
+									<div class="ja-col-1">
+										<i class="fas fa-cogs"></i>
+									</div>
+									<div class="ja-col-10">
+										{{ trans }}
+									</div>
+								</div>
+							
+						</div>
+						
+						{% if stock == 'vn' %}
+							{# VN #}
+							<div class="ja-col-12 ja-col-sm-6">
+
+								<div class="ja-row">
+									<div class="ja-col-1">
+										<i class="fas fa-bolt"></i>
+									</div>
+									<div class="ja-col-10">
+										{{ cvTax }}
+									</div>
+								</div>
+								
+							</div>
+						{% endif %}
+						
+						{% if stock == 'vn' %}
+							{# VN #}
+							<div class="ja-col-12 ja-col-sm-6">
+
+								<div class="ja-row">
+									<div class="ja-col-1">
+										<i class="fas fa-car"></i>
+									</div>
+									<div class="ja-col-10">
+										{{ bodyType }}
+									</div>
+								</div>
+								
+							</div>
+						{% endif %}
+						
+						{# VN/VO #}
+						<div class="ja-col-12 ja-col-sm-6">
+
+								<div class="ja-row">
+									<div class="ja-col-1">
+										<i class="fas fa-paint-brush"></i>
+									</div>
+									<div class="ja-col-10">
+										{{ color|lower }}
+									</div>
+								</div>
+							
+						</div>
+						
+						{% if stock == 'vo' %}
+							{# VO #}
+							<div class="ja-col-12 ja-col-sm-6">
+
+								<div class="ja-row">
+									<div class="ja-col-1">
+										<i class="fas fa-calendar"></i>
+									</div>
+									<div class="ja-col-10">
+										{{ MEC }}
+									</div>
+								</div>
+								
+							</div>
+						{% endif %}
+					</div>
+					
+				</div>
+
+				{# Price #}
+				<div class="ja-col-12 ja-col-lg-3">
+					<div class="ja-price-container">
+						<div>
+							{{ price }} € <span class="ja-txt-light ja-txt-1">TTC</span>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</a>
+	</div>
+</section>

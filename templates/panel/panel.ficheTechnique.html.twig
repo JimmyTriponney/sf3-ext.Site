@@ -1,0 +1,154 @@
+<div class="row ja-txt-center ja-txt-md-left">
+	<div class="col-6 col-md-3 mb-4">
+		
+		<div class="row">
+			<div class="col-12 p-2 ja-txt-bold">
+				<i class="fas fa-cogs ja-txt-3 ja-txt-red-80 mr-2"></i>
+				<h3 class="ja-txt-2 ja-d-inline">Moteur</h3>
+
+				<div class="row mb-1 mt-4">
+					<div class="col-12 col-lg-6 ja-txt-1"><h4 class="ja-txt-none ja-txt-light m-0">Type moteur</h4></div>
+					<div class="col-12 col-lg-6 ja-txt-1 ja-txt-bold">{{ motorCyl }} cylindres en {{ motorCylType }}</div>
+				</div>
+				<div class="row mb-1">
+					<div class="col-12 col-lg-6 ja-txt-1"><h4 class="ja-txt-none ja-txt-light m-0">Puissance</h4></div>
+					<div class="col-12 col-lg-6 ja-txt-1 ja-txt-bold">{{ cvKw }} kW / {{ cvDin }} ch DIN</div>
+				</div>
+				<div class="row mb-1">
+					<div class="col-12 col-lg-6 ja-txt-1"><h4 class="ja-txt-none ja-txt-light m-0">Cylindrée</h4></div>
+					<div class="col-12 col-lg-6 ja-txt-1 ja-txt-bold">{{ motorVol }} cc</div>
+				</div>
+				<div class="row mb-1">
+					<div class="col-12 col-lg-6 ja-txt-1"><h4 class="ja-txt-none ja-txt-light m-0">Transmission</h4></div>
+					<div class="col-12 col-lg-6 ja-txt-1 ja-txt-bold">{{ wd }}</div>
+				</div>
+				<div class="row">
+					<div class="col-12 col-lg-6 ja-txt-1"><h4 class="ja-txt-none ja-txt-light m-0">Boîte de vitesse</h4></div>
+					<div class="col-12 col-lg-6 ja-txt-1 ja-txt-bold">{{ trans }}</div>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
+	<div class="col-6 col-md-3 mb-4">
+		
+		<div class="row">
+			<div class="col-12 ja-txt-2 p-2 ja-txt-bold">
+				<i class="fas fa-clock ja-txt-3 ja-txt-red-80 mr-2"></i>
+				<h3 class="ja-txt-2 ja-d-inline">Performances</h3>
+				
+				<div class="row mb-1 mt-4">
+					<div class="col-12 col-lg-6 ja-txt-1"><h4 class="ja-txt-none ja-txt-light m-0">Vitesse maximum</h4></div>
+					<div class="col-6 ja-txt-1 ja-txt-bold">{{ maxSpeed }}</div>
+				</div>
+				<div class="row mb-1">
+					<div class="col-12 col-lg-6 ja-txt-1"><h4 class="ja-txt-none ja-txt-light m-0">Accélération de 0 à 100 km/h</h4></div>
+					<div class="col-12 col-lg-6 ja-txt-1 ja-txt-bold">{{ acceleration }}</div>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
+	<div class="col-6 col-md-3 mb-4">
+		
+		<div class="row">
+			<div class="col-12 ja-txt-2 p-2 ja-txt-bold">
+				<i class="fas fa-arrows-alt ja-txt-3 ja-txt-red-80 mr-2"></i>
+				<h3 class="ja-txt-2 ja-d-inline">Dimensions</h3>
+
+				<div class="row mb-1 mt-4">
+					<div class="col-12 col-lg-6 ja-txt-1"><h4 class="ja-txt-none ja-txt-light m-0">Nombre de places</h4></div>
+					<div class="col-12 col-lg-6 ja-txt-1 ja-txt-bold">{{ seat }}</div>
+				</div>
+				<div class="row mb-1">
+					<div class="col-12 col-lg-6 ja-txt-1"><h4 class="ja-txt-none ja-txt-light m-0">Longueur</h4></div>
+					<div class="col-12 col-lg-6 ja-txt-1 ja-txt-bold">{{ length }} mm</div>
+				</div>
+				<div class="row mb-1">
+					<div class="col-12 col-lg-6 ja-txt-1"><h4 class="ja-txt-none ja-txt-light m-0">Largeur</h4></div>
+					<div class="col-12 col-lg-6 ja-txt-1 ja-txt-bold">{{ width }} mm</div>
+				</div>
+				<div class="row mb-1">
+					<div class="col-12 col-lg-6 ja-txt-1"><h4 class="ja-txt-none ja-txt-light m-0">Hauteur</h4></div>
+					<div class="col-12 col-lg-6 ja-txt-1 ja-txt-bold">{{ height }} mm</div>
+				</div>
+				<div class="row mb-1">
+					<div class="col-12 col-lg-6 ja-txt-1"><h4 class="ja-txt-none ja-txt-light m-0">Empattement</h4></div>
+					<div class="col-12 col-lg-6 ja-txt-1 ja-txt-bold">{{ wheelBase }} mm</div>
+				</div>
+				<div class="row mb-1">
+					<div class="col-12 col-lg-6 ja-txt-1"><h4 class="ja-txt-none ja-txt-light m-0">Pneus avant</h4></div>
+					<div class="col-12 col-lg-6 ja-txt-1 ja-txt-bold">{{ frontTire }}</div>
+				</div>
+				<div class="row mb-1">
+					<div class="col-12 col-lg-6 ja-txt-1"><h4 class="ja-txt-none ja-txt-light m-0">Pneus arrière</h4></div>
+					<div class="col-12 col-lg-6 ja-txt-1 ja-txt-bold">{{ rearTire }}</div>
+				</div>
+				<div class="row mb-1">
+					<div class="col-12 col-lg-6 ja-txt-1"><h4 class="ja-txt-none ja-txt-light m-0">Poids total</h4></div>
+					<div class="col-12 col-lg-6 ja-txt-1 ja-txt-bold">{{ totalWeight }} kg</div>
+				</div>
+				<div class="row mb-1">
+					<div class="col-12 col-lg-6 ja-txt-1"><h4 class="ja-txt-none ja-txt-light m-0">Poids à vide avec conducteur</h4></div>
+					<div class="col-12 col-lg-6 ja-txt-1 ja-txt-bold">{{ emptyWeight }} kg</div>
+				</div>
+				<div class="row mb-1">
+					<div class="col-12 col-lg-6 ja-txt-1"><h4 class="ja-txt-none ja-txt-light m-0">Volume coffre minimum</h4></div>
+					<div class="col-12 col-lg-6 ja-txt-1 ja-txt-bold">{{ chestMin }} l</div>
+				</div>
+				<div class="row mb-1">
+					<div class="col-12 col-lg-6 ja-txt-1"><h4 class="ja-txt-none ja-txt-light m-0">Volume coffre maximum</h4></div>
+					<div class="col-12 col-lg-6 ja-txt-1 ja-txt-bold">{{ chestMax }} l</div>
+				</div>
+				<div class="row mb-1">
+					<div class="col-12 col-lg-6 ja-txt-1"><h4 class="ja-txt-none ja-txt-light m-0">Charge utile</h4></div>
+					<div class="col-12 col-lg-6 ja-txt-1 ja-txt-bold">{{ playload }} kg</div>
+				</div>
+				<div class="row mb-1">
+					<div class="col-12 col-lg-6 ja-txt-1"><h4 class="ja-txt-none ja-txt-light m-0">Charge sur toit</h4></div>
+					<div class="col-12 col-lg-6 ja-txt-1 ja-txt-bold">{{ roofload }} kg</div>
+				</div>
+
+			</div>
+		</div>
+		
+	</div>
+
+	<div class="col-6 col-md-3 mb-4">
+		
+		<div class="row">
+			<div class="col-12 ja-txt-2 p-2 ja-txt-bold">
+				<i class="fas fa-tint ja-txt-3 ja-txt-red-80 mr-2"></i>
+				<h3 class="ja-txt-2 ja-d-inline">Consommations</h3>
+
+				<div class="row mb-1 mt-4">
+					<div class="col-12 col-lg-6 ja-txt-1"><h4 class="ja-txt-none ja-txt-light m-0">Carburant</h4></div>
+					<div class="col-12 col-lg-6 ja-txt-1 ja-txt-bold">{{ fuel }}</div>
+				</div>
+				<div class="row mb-1">
+					<div class="col-12 col-lg-6 ja-txt-1"><h4 class="ja-txt-none ja-txt-light m-0">Urbain</h4></div>
+					<div class="col-12 col-lg-6 ja-txt-1 ja-txt-bold">{{ cUrban }} l/100km</div>
+				</div>
+				<div class="row mb-1">
+					<div class="col-12 col-lg-6 ja-txt-1"><h4 class="ja-txt-none ja-txt-light m-0">Extra-urbain</h4></div>
+					<div class="col-12 col-lg-6 ja-txt-1 ja-txt-bold">{{ cExtra }} l/100km</div>
+				</div>
+				<div class="row mb-1">
+					<div class="col-12 col-lg-6 ja-txt-1"><h4 class="ja-txt-none ja-txt-light m-0">Mixte</h4></div>
+					<div class="col-12 col-lg-6 ja-txt-1 ja-txt-bold">{{ cMixed }} l/100km</div>
+				</div>
+				<div class="row mb-1">
+					<div class="col-12 col-lg-6 ja-txt-1"><h4 class="ja-txt-none ja-txt-light m-0">Emission de CO2</h4></div>
+					<div class="col-12 col-lg-6 ja-txt-1 ja-txt-bold">{{ co2 }}</div>
+				</div>
+
+			</div>
+		</div>
+		
+	</div>
+
+</div>

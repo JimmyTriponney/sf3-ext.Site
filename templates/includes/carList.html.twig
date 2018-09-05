@@ -1,0 +1,120 @@
+{# Recover elements of that vehicle #}
+{# Id #}{% set id = vehicle.iVehicleId %}
+{# Body #}{% set body = vehicle.sBody %}
+{# Model #}{% set model = vehicle.sModel %}
+{# Image #}{% set image = vehicle.aCVehiculeImageDTO.s_vim_nom %}
+{# Brand #}{% set brand = vehicle.sBrand %}
+{# Name #}{% set name = vehicle.sName %}
+{# Name bis #}{% set nameB = vehicle.sNameBis %}
+{# Price origin #}{% set priceOri = vehicle.fPrice %}
+{# Price #}{% set price = priceOri|number_format(0, '.', ' ') %}
+{# Fuel #}{% set fuel = 'essence' in vehicle.sFuel|lower ? 'Essence' : 'diesel' in vehicle.sFuel|lower ? 'Diesel' : vehicle.sFuel %}
+{# BodyType #}{% set bodyType = vehicle.sBody %}
+{# MEC #}{% set MEC = vehicle.d_veh_date_mec|date('d/m/Y') %}
+{# Year MEC #}{% set YearMEC = vehicle.d_veh_date_mec|date('Y') %}
+{# km #}{% set km = vehicle.i_veh_kilometre|number_format(0, '.', ' ') %}
+{# cvDin #}{% set cvDin = vehicle.f_veh_typhp %}
+{# cvTax #}{% set cvTax = vehicle.fTypTaxHp %}
+{# nbSpeed #}{% set nbSpeed = vehicle.iNumberOfGears %}
+{# TransType #}{% set trans = 'manuel' in vehicle.s_veh_typtxttranstypecd2lbl|lower ? 'Manuelle' : 'Automatique' %}
+{# ColorExt #}{% set color = vehicle.sCouleurExt %}
+{# stock #}{% set stock = app.request.attributes.get("type")|lower ? app.request.attributes.get("type")|lower : type %}
+{# responsive class #}
+{% set responsive = nbRows is defined ? loop.index > nbRows ? 'd-none ' : '' %}
+{% set responsive = responsive ~ ( nbRows is defined ? loop.index > nbRows and loop.index < ( nbRows * 2 + 1 ) ? 'd-md-block ' : '' ) %}
+{% set responsive = responsive ~ ( nbRows is defined ? loop.index > ( nbRows * 2 ) and loop.index < (nbRows * 3 + 1) ? 'd-lg-block' : '') %}
+
+
+<div class="col-12 col-md-6 col-lg-4 template p-0 {{ responsive }} ">
+	<a href="{{ path('carcarDetails', {'type' : stock, 'id' : id}) }}" class="link row" alt="{{ name }}" title="Accéder à l'annonce {{ name }}">
+		<figure class="figure hover-box car-card-preview col-12">
+			<span class="car-card-preview-title-view hover-blur w-100 bg-white">
+				<span class="brand">{{ brand }}</span>
+				<br>
+				<span class="model">{{ name ?? nameB }}</span>
+			</span>
+			<img class="figure-img car-card-preview-image hover-blur image" src="{{ image }}&width=500&height=400&bCrop=1&FORMAT=2" alt="{{ name }}" title="{{ name }}"/>
+			<figcaption class="row">
+
+			<div class="car-card-preview-content hover-slideup col-12">
+
+				<div class="row car-card-preview-description">
+					<div class="col-12 car-card-preview-title">
+						<span class="brand">{{ brand }}</span><br>
+						<span class="name">{{ name ?? nameB }}</span>
+					</div>
+
+					{% if stock == 'vo' or stock == 'vd' %}
+					<div class="col-12">
+						<div class="row">
+							<div class="col-2"><i class="fas fa-road"></i></div>
+							<div class="col-10"><span class="km">{{ km }}</span> Km</div>
+						</div>
+					</div>
+					{% endif %}
+
+					<div class="col-12">
+						<div class="row">
+						<div class="col-2"><i class="fas fa-tint"></i></div>
+						<div class="col-10"><span class="fuel">{{ fuel }}</span></div>
+						</div>
+					</div>
+
+					<div class="col-12">
+						<div class="row">
+						<div class="col-2"><i class="fas fa-cogs"></i></div>
+						<div class="col-10"><span class="trans">{{ trans }}</span></div>
+						</div>
+					</div>
+
+					{% if stock == 'vn' %}
+					<div class="col-12">
+						<div class="row">
+							<div class="col-2"><i class="fas fa-bolt"></i></div>
+							<div class="col-10"><span class="cvtax">{{ cvTax }}</span> Cv</div>
+						</div>
+					</div>
+					{% endif %}
+
+					{% if stock == 'vn' %}
+					<div class="col-12">
+						<div class="row">
+							<div class="col-2"><i class="fas fa-car"></i></div>
+							<div class="col-10"><span class="body">{{ bodyType }}</span></div>
+						</div>
+					</div>
+					{% endif %}
+
+					<div class="col-12">
+						<div class="row">
+						<div class="col-2"><i class="fas fa-paint-brush"></i></div>
+						<div class="col-10"><span class="color">{{ color | lower }}</span></div>
+						</div>
+					</div>
+
+					{% if stock == 'vo' or stock == 'vd' %}
+					<div class="col-12">
+						<div class="row">
+							<div class="col-2"><i class="fas fa-calendar"></i></div>
+							<div class="col-10"><span class="mec">{{ MEC }}</span></div>
+						</div>
+					</div>
+					{% endif %}
+
+					<div class="col-12 car-card-preview-link">
+						<span class="hover-zoom-solo"><i class="fas fa-eye"></i> Détails</span>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="car-card-preview-price">
+				<div>
+				<span class="price">{{ price }}</span> €
+				</div>
+			</div>
+			
+			</figcaption>
+		</figure>
+	</a>
+</div>

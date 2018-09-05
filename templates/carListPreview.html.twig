@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Liste des véhicules Jeannin Automobiles' %}
+
+{% block container %}
+
+	<div class="row ja-bg-grey ja-txt-upper">
+
+		<div class="col-12">
+			<div class="row">
+				<div class="col-12 p-4 ja-txt-3 ja-txt-center ja-txt-white">
+					{% if nbVh > 1 %}
+						SÉLECTIONNEZ UNE VOITURE PARMI NOS 
+					{% else %}
+						ACTUELLEMENT 
+					{% endif %}
+					<span class="ja-txt-blue">
+						{% if model is defined %}
+							{{ nbVh }} {{ model }}
+						{% else %}
+							{{ nbVh }} VÉHICULES
+						{% endif %}
+					</span> EN STOCK
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="row ja-tab-container">
+
+		{# Collapse menu #}
+		<div class="col-12 ja-nav-dark">
+			<div class="row px-lg-5 mx-lg-5">
+				{% if nc|length %}
+					<div class="ja-tab-item active ja-w-auto" data-target="vn">Véhicules neufs</div>
+				{% endif %}
+				{% if uc|length %}
+					<div class="ja-tab-item ja-w-auto {{ nc|length ? '' : 'active' }}" data-target="vo">Véhicules d'occasion</div>
+				{% endif %}
+				{% if dc|length %}
+					<div class="ja-tab-item ja-w-auto {{ nc|length and uc|length ? '' : 'active' }}" data-target="vd">Véhicules de direction</div>
+				{% endif %}
+			</div>
+		</div>
+	
+		{# Collapse panel #}
+		<div class="col-12 ja-tab-content">
+
+			{% if nc|length %}
+			{# New cars #}
+			<div class="ja-tab-panel active" data-target="vn">
+				<div class="row pt-4 px-xl-5 mx-xl-5" style="justify-content:center;">
+					{# Show list of all vehicles #}
+					{% for vehicle in nc %}
+						{{ include('includes/'~typeCard~'.html.twig',{'vehicle':vehicle, 'type':'vn'}) }}
+					{% endfor %}
+				</div>
+			</div>
+			{% endif %}
+
+			{% if uc|length %}
+			{# Used cars #}
+			<div class="ja-tab-panel {{ nc|length ? '' : 'active' }}" data-target="vo">
+				<div class="row pt-4 px-0 mx-0 px-xl-5 mx-xl-5" style="justify-content:center;">
+					{# Show list of all vehicles #}
+					{% for vehicle in uc %}
+						{{ include('includes/'~typeCard~'.html.twig',{'vehicle':vehicle, 'type':'vo'}) }}
+					{% endfor %}
+				</div>
+			</div>
+			{% endif %}
+
+			{% if dc|length %}
+			{# Direction cars #}
+			<div class="ja-tab-panel {{ nc|length and uc|length ? '' : 'active' }}" data-target="vd">
+				<div class="row pt-4 px-xl-5 mx-xl-5" style="justify-content:center;">
+					{# Show list of all vehicles #}
+					{% for vehicle in dc %}
+						{{ include('includes/'~typeCard~'.html.twig',{'vehicle':vehicle, 'type':'vd'}) }}
+					{% endfor %}
+				</div>
+			</div>
+			{% endif %}
+		
+		</div>
+	</div>
+	
+{% endblock %}

@@ -1,0 +1,71 @@
+{# important informations #}
+<div class="ja-col-lg-9 ja-col-12 ja-p-0">
+	
+	{# caroussel #}
+	<div class="ja-row">
+	
+		{{ include('includes/car.carrousel.html.twig') }}
+
+	</div>
+	
+	{# informations preview #}
+	<div class="ja-row ja-d-flex ja-mb-5">
+	
+		<div class="ja-col-sm ja-col-4 ja-txt-center ja-d-flex ja-mt-3" style="flex-direction:column;justify-content:space-between;">
+			<div class="ja-txt-xl-none ja-txt-1 ja-txt-xl-upper ja-txt-upper ja-txt-bold ja-mb-3">
+				<p><i class="fas fa-car ja-txt-red-80 ja-txt-5"></i></p>
+				Carrosserie
+			</div>
+			<div class="ja-txt-1">
+				{{ body }}
+			</div>
+		</div>
+	
+		<div class="ja-col-sm ja-col-4 ja-txt-center ja-d-flex ja-mt-3" style="flex-direction:column;justify-content:space-between;">
+			<div class="ja-txt-xl-none ja-txt-1 ja-txt-xl-upper ja-txt-upper ja-txt-bold ja-mb-3">
+				<p><i class="fas fa-bolt ja-txt-red-80 ja-txt-5"></i></p>
+				Puissance fiscale
+			</div>
+			<div class="ja-txt-1">
+				{{ cvTax }}
+			</div>
+		</div>
+	
+		<div class="ja-col-sm ja-col-4 ja-txt-center ja-d-flex ja-mt-3" style="flex-direction:column;justify-content:space-between;">
+			<div class="ja-txt-xl-none ja-txt-1 ja-txt-xl-upper ja-txt-upper ja-txt-bold ja-mb-3">
+				<p><i class="fas fa-paint-brush ja-txt-red-80 ja-txt-5"></i></p>
+				Couleur
+			</div>
+			<div class="ja-txt-1">
+				{{ colorOut|lower|capitalize }}<br>
+				{{ colorIn|lower|capitalize }}
+			</div>
+		</div>
+
+
+
+		{% if guarantee %}
+			<div class="ja-col-sm ja-col-4 ja-txt-center ja-d-flex ja-mt-3" style="flex-direction:column;justify-content:space-between;">
+				<div class="ja-txt-xl-none ja-txt-1 ja-txt-xl-upper ja-txt-upper ja-txt-bold ja-mb-3">
+					<p><i class="fas fa-wrench ja-txt-red-80 ja-txt-5"></i></p>
+					Garantie
+				</div>
+				<div class="ja-txt-1">
+					{{ guarantee }}<br>
+					{{ guaranteeLen }}
+				</div>
+			</div>
+		{% endif %}
+
+		<div class="ja-col-sm ja-col-4 ja-txt-center ja-d-flex ja-mt-3" style="flex-direction:column;justify-content:space-between;">
+			<div class="ja-txt-xl-none ja-txt-1 ja-txt-xl-upper ja-txt-upper ja-txt-bold ja-mb-3">
+				<p><i class="fab fa-schlix ja-txt-red-80 ja-txt-5"></i></p>
+				Peinture métalisée
+			</div>
+			<div class="ja-txt-1">
+				{{ colorMetal }}
+			</div>
+		</div>
+		
+	</div>
+</div>

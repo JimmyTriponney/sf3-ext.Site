@@ -1,0 +1,449 @@
+{# extends 'base.html.twig' #}
+
+{# Recover vehicle informations #}
+
+{# stock #}{% set stock = app.request.attributes.get("type")|lower %}
+{# Id #}{% set id = vh.iId %}
+{# Brand #}{% set brand = vh.sBrandName %}
+{# Name #}{% set name = vh.sName %}
+{# Name bis #}{% set nameB = vh.sNameBis %}
+{# Fuel #}{% set fuel = vh.sFuel %}
+{# Kilométre #}{% set km = stock == 'vn' ? '' : vh.iMileage|number_format(0, '.', ' ') %}
+{# MEC #}{% set mec = vh.sMECDate|date('d/m/Y') %}
+{# Trans #}{% set trans = vh.sGearboxType %}
+{# Price #}{% set price = vh.fTotalPrice|number_format(0, '.', ' ') %}
+{# Entity #}{% set entity = vh.sPVELibelle%}
+{# Adress entity #}{% set adress = vh.sPVEAdresse1~' '~vh.sPVEAdresse2 %}
+{# zip code entity #}{% set zip = vh.sPVECP %}
+{# city #}{% set city = vh.sPVEVille %}
+{# body #}{% set body = vh.sBody %}
+{# cvTax #}{% set cvTax = vh.fHorseTax %}
+{# cvDin #}{% set cvDin = vh.fHorsePower %}
+{# cvKW #}{% set cvKw = vh.fPower %}
+{# colorOut #}{% set colorOut = vh.sCouleurExt %}
+{# colorIn #}{% set colorIn = vh.sCouleurInt %}
+{# colorMetal #}{% set colorMetal = vh.bMetallicPaint != '' ? 'Oui' : 'Non' %}
+{# Guarantee #}{% set guarantee = stock == 'vn' ? '' : vh.sGuarantee %}
+{# Guarentie length #}{% set guaranteeLen = stock == 'vn' ? '' : vh.sGuaranteeLength matches '*^\\d{2,4}[/ .-]+\\d{2}[/ .-]+\\d{2,4}$*' == 0 ? vh.sGuaranteeLength : vh.sGuaranteeLength|date('d/m/Y') %}
+{# motor cyl #}{% set motorCyl = vh.iNumberOfCylinders %}
+{# motor cyl type #}{% set motorCylType = vh.sEngineType %}
+{# motorVol #}{% set motorVol = vh.fCapacity %}
+{# WD #}{% set wd = vh.sTransmission %}
+{# MaxSpeed #}{% set maxSpeed = vh.iMaxSpeed %}
+{# acceleration time #}{% set acceleration = vh.fAccelerationTime %}
+{# seat #}{% set seat = vh.iNumberOfSeats %}
+{# length #}{% set length = vh.iLength %}
+{# width #}{% set width = vh.iWidth %}
+{# height #}{% set height = vh.iHeight %}
+{# Wheelbase #}{% set wheelBase = vh.iWheelBase %}
+{# Front tire #}{% set frontTire = vh.sFrontTires %}
+{# Rear tire #}{% set rearTire = vh.sBackTires %}
+{# Total weight #}{% set totalWeight = vh.iTotalWeight %}
+{# Empty weight #}{% set emptyWeight = vh.iEmptyWithDriverWeight %}
+{# Min chest volume #}{% set chestMin = vh.iTrunkMaxCapacity %}
+{# Max chest volume #}{% set chestMax = vh.iTrunkMinCapacity %}
+{# Playload #}{% set playload = vh.iPayload %}
+{# Roof load #}{% set roofload = vh.iRoofLoad %}
+{# Cons urban #}{% set cUrban = vh.fUrbanConsumption %}
+{# Cons extra urban #}{% set cExtra = vh.fLandConsumption %}
+{# Cons mixed #}{% set cMixed = vh.fMixedConsumption %}
+{# CO2 #}{% set co2 = vh.iCO2Emission%}
+{# Equipments #}{% set equipments = vh.aEquipmentGroups %}
+{# ref #}{% set ref = vh.sReference %}
+{# Pictures #}{% set pictures = vh.aPictures %}
+
+	<style>
+		@page
+		{
+			size : 210mm 297mm;
+		}
+	
+
+		table
+		{
+			width: 100%;
+		}
+
+		td
+		{
+			position : relative;
+		}
+		td>table
+		{
+			position : absolute;
+			top : 0;
+		}
+
+		.card
+		{
+			border : 1px grey solid;
+			border-radius : 5px;
+			text-align: center;
+		}
+
+		.recap tr td
+		{
+			border-right : 1px grey solid;
+		}
+	</style>
+
+	<table width="100%">
+		<tr>
+			<td>
+				
+				<table width="100%">
+					<tr>
+						<!-- Picture -->
+						<td width="40%">
+							
+							<table width="100%">
+
+
+								{% for picture in pictures %}
+
+									{% if loop.index == 1%}
+
+										<tr>
+											<td colspan=3 >
+												<img src="{{ picture }}" width="100%"/>												
+											</td>
+										</tr>
+
+									{% elseif loop.index <= 4 and loop.index > 1 %}
+
+										{% if loop.index == 2 %}<tr>{% endif %}
+
+											<td>
+												<img src="{{ picture }}"  width="100%"/>
+											</td>
+
+										{% if loop.index == 4 %}</tr>{% endif %}
+
+									{% endif %}
+
+								{% endfor %}
+
+							</table>
+
+						</td>
+						
+						<td width="60%">
+							
+							<table width="100%">
+								<tr>
+									<td align="right">{{ price }} € TTC</td>
+								</tr>
+								<tr>
+									<td>
+										<p>
+											{{ brand }}</br>
+											{{ name }}</br>
+											{{ nameB }}
+										</p>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										
+										<table width="100%" class="card" cellspacing=0 cellpadding=0>
+											<tr>
+												<td>
+													Kilométrage</br>
+													{{ km }} km
+												</td>
+												<td>
+													Année</br>
+													{{ mec }}
+												</td>
+												<td>
+													Energie</br>
+													{{ fuel }}
+												</td>
+												<td>
+													Puissance fiscale</br>
+													{{ cvTax }}
+												</td>
+											</tr>
+										</table>
+
+									</td>
+								</tr>
+								<tr>
+									<td>
+										
+										<table width="100%" class="card">
+											<tr>
+												<td background="grey" >Contacter le vendeur</td>
+											</tr>
+											<tr>
+												<td></td>
+											</tr>
+										</table>
+
+									</td>
+								</tr>
+							</table>
+							
+
+						</td>
+					</tr>
+				</table>
+				
+
+			</td>
+		</tr>
+
+
+	</table>
+
+	{#
+	<div class="ja-row">
+
+		<!-- Preview -->
+		<div class="ja-col-5">
+
+		</div>
+
+		<!-- First informations -->
+		<div class="ja-col-7">
+			<div class="ja-row ja-mt-2">
+				<div class="ja-col-12 ja-txt-right ja-txt-bold ja-txt-2">
+					{{ price }} € TTC
+				</div>
+			</div>
+			<div class="ja-row ja-mt-1">
+				<div class="ja-col-12 ja-txt-grey ja-txt-bold ja-line-height-2 ja-txt-1">
+					<p>{{ brand }}</p>
+					<p>{{ name }}</p>
+					<p>{{ nameB }}</p>
+				</div>
+			</div>
+			<div class="ja-row ja-mt-2">
+				<div class="ja-col ja-border-solid ja-border-1 ja-border-grey ja-border-top-left-radius-2 ja-border-bottom-left-radius-2">
+					<p class="ja-txt-black ja-txt-center">
+						Kilométrage
+					</p>
+					<p class="ja-txt-center">
+						{{ km }} km
+					</p>
+				</div>
+				<div class="ja-col ja-border-solid ja-border-1 ja-border-grey">
+					<p class="ja-txt-black ja-txt-center">
+						Année
+					</p>
+					<p class="ja-txt-center">
+						{{ mec }}
+					</p>
+				</div>
+				<div class="ja-col ja-border-solid ja-border-1 ja-border-grey">
+					<p class="ja-txt-black ja-txt-center">
+						Energie
+					</p>
+					<p class="ja-txt-center">
+						{{ fuel }}
+					</p>
+				</div>
+				<div class="ja-col ja-border-solid ja-border-1 ja-border-grey ja-border-top-right-radius-2 ja-border-bottom-right-radius-2">
+					<p class="ja-txt-black ja-txt-center">
+						Puissance fiscale
+					</p>
+					<p class="ja-txt-center">
+						{{ cvTax }}
+					</p>
+				</div>
+			</div>
+			<div class="ja-row ja-mt-1">
+				<div class="ja-col-12 ja-p-0 ja-border-1 ja-border-solid ja-border-grey ja-border-radius-2 ja-overflow-hidden">
+					<div class="ja-row">
+						<div class="ja-col-12 ja-bg-grey ja-txt-black ja-txt-center ja-border-0 ja-border-bottom-1 ja-border-bottom-grey ja-border-bottom-solid">
+							Contacter le vendeur
+						</div>
+						<div class="ja-col-12 ja-txt-center ja-txt-1">
+							<p>{{ entity }}</p>
+							<p>{{ adress }}</p>
+							<p>{{ zip~' '~city }}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="ja-row">
+		<div class="ja-col-12">
+			
+			<div class="ja-row">
+				<div class="ja-col-12 ja-border-0 ja-border-bottom-2 ja-border-solid ja-border-grey">
+					<h2 class="ja-txt-grey ja-txt-3 ja-txt-bold ja-p-0 ja-m-0">Informations</h2>
+				</div>
+				<div class="ja-col-12">
+					<div class="ja-row 2 ja-border-0 ja-border-bottom-1 ja-border-solid ja-border-grey ja-txt-grey ja-pt-2">
+						<div class="ja-col-6 ja-txt-bold">Garantie</div>
+						<div class="ja-col-6">{{ guarantee }}</div>
+					</div>
+					<div class="ja-row 2 ja-border-0 ja-border-bottom-1 ja-border-solid ja-border-grey ja-txt-grey ja-pt-2">
+						<div class="ja-col-6 ja-txt-bold">Durée de la garantie</div>
+						<div class="ja-col-6">{{ guaranteeLen }}</div>
+					</div>
+					<div class="ja-row 2 ja-border-0 ja-border-bottom-1 ja-border-solid ja-border-grey ja-txt-grey ja-pt-2">
+						<div class="ja-col-6 ja-txt-bold">Peinture métallisée</div>
+						<div class="ja-col-6">{{ colorMetal }}</div>
+					</div>
+					<div class="ja-row 2 ja-border-0 ja-border-bottom-1 ja-border-solid ja-border-grey ja-txt-grey ja-pt-2">
+						<div class="ja-col-6 ja-txt-bold">Couleur extérieur</div>
+						<div class="ja-col-6">{{ colorOut }}</div>
+					</div>
+					<div class="ja-row 2 ja-border-0 ja-border-bottom-1 ja-border-solid ja-border-grey ja-txt-grey ja-pt-2">
+						<div class="ja-col-6 ja-txt-bold">Couleur intérieur</div>
+						<div class="ja-col-6">{{ colorIn }}</div>
+					</div>
+					<div class="ja-row 2 ja-border-0 ja-border-bottom-1 ja-border-solid ja-border-grey ja-txt-grey ja-pt-2">
+						<div class="ja-col-6 ja-txt-bold">Référence</div>
+						<div class="ja-col-6">{{ ref }}</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="ja-row">
+				<div class="ja-col-12 ja-border-0 ja-border-bottom-2 ja-border-solid ja-border-grey ja-mt-1">
+					<h2 class="ja-txt-grey ja-txt-3 ja-txt-bold ja-m-0">Fiche technique</h2>
+				</div>
+				<div class="ja-col-12 ja-border-0 ja-border-bottom-2 ja-border-solid ja-border-grey ja-p-1 ja-bg-grey ja-txt-bold ja-txt-2">
+					Données techniques
+				</div>
+				<div class="ja-col-12">
+					<div class="ja-row 2 ja-border-0 ja-border-bottom-1 ja-border-solid ja-border-grey ja-txt-grey ja-pt-2">
+						<div class="ja-col-6 ja-txt-bold">Type de moteur</div>
+						<div class="ja-col-6">{{ motorCyl~' cylindres en '~motorCylType|lower }}</div>
+					</div>
+					<div class="ja-row 2 ja-border-0 ja-border-bottom-1 ja-border-solid ja-border-grey ja-txt-grey ja-pt-2">
+						<div class="ja-col-6 ja-txt-bold">Puissance</div>
+						<div class="ja-col-6">{{ cvKw~' kW / '~cvDin~' ch DIN' }}</div>
+					</div>
+					<div class="ja-row 2 ja-border-0 ja-border-bottom-1 ja-border-solid ja-border-grey ja-txt-grey ja-pt-2">
+						<div class="ja-col-6 ja-txt-bold">Cylindrée</div>
+						<div class="ja-col-6">{{ motorVol }} cc</div>
+					</div>
+					<div class="ja-row 2 ja-border-0 ja-border-bottom-1 ja-border-solid ja-border-grey ja-txt-grey ja-pt-2">
+						<div class="ja-col-6 ja-txt-bold">Transmission</div>
+						<div class="ja-col-6">{{ wd }}</div>
+					</div>
+					<div class="ja-row 2 ja-border-0 ja-border-bottom-1 ja-border-solid ja-border-grey ja-txt-grey ja-pt-2">
+						<div class="ja-col-6 ja-txt-bold">Boîte de vitesse</div>
+						<div class="ja-col-6">{{ trans }}</div>
+					</div>
+					<div class="ja-row 2 ja-border-0 ja-border-bottom-1 ja-border-solid ja-border-grey ja-txt-grey ja-pt-2">
+						<div class="ja-col-6 ja-txt-bold">Carburant</div>
+						<div class="ja-col-6">{{ fuel }}</div>
+					</div>
+					<div class="ja-row 2 ja-border-0 ja-border-bottom-1 ja-border-solid ja-border-grey ja-txt-grey ja-pt-2">
+						<div class="ja-col-6 ja-txt-bold">Nombre de places</div>
+						<div class="ja-col-6">{{ seat }}</div>
+					</div>
+					<div class="ja-row 2 ja-border-0 ja-border-bottom-1 ja-border-solid ja-border-grey ja-txt-grey ja-pt-2">
+						<div class="ja-col-6 ja-txt-bold">Date d'immatriculation</div>
+						<div class="ja-col-6">{{ mec }}</div>
+					</div>
+					<div class="ja-row 2 ja-border-0 ja-border-bottom-1 ja-border-solid ja-border-grey ja-txt-grey ja-pt-2">
+						<div class="ja-col-6 ja-txt-bold">Pneus avant</div>
+						<div class="ja-col-6">{{ frontTire }}</div>
+					</div>
+					<div class="ja-row 2 ja-border-0 ja-border-bottom-1 ja-border-solid ja-border-grey ja-txt-grey ja-pt-2">
+						<div class="ja-col-6 ja-txt-bold">Pneus arrière</div>
+						<div class="ja-col-6">{{ rearTire }}</div>
+					</div>
+				</div>
+
+				<div class="ja-col-12 ja-border-0 ja-border-bottom-2 ja-border-solid ja-border-grey ja-p-1 ja-bg-grey ja-txt-bold ja-txt-2">
+					Performances, consomations, normes ECE
+				</div>
+				<div class="ja-col-12">
+					<div class="ja-row 2 ja-border-0 ja-border-bottom-1 ja-border-solid ja-border-grey ja-txt-grey ja-pt-2">
+						<div class="ja-col-6 ja-txt-bold">Vitesse maximum</div>
+						<div class="ja-col-6">{{ maxSpeed }}</div>
+					</div>
+					<div class="ja-row 2 ja-border-0 ja-border-bottom-1 ja-border-solid ja-border-grey ja-txt-grey ja-pt-2">
+						<div class="ja-col-6 ja-txt-bold">Accélération de 0 à 100 km/h </div>
+						<div class="ja-col-6">{{ cvKw~' kW / '~cvDin~' ch DIN' }}</div>
+					</div>
+					<div class="ja-row 2 ja-border-0 ja-border-bottom-1 ja-border-solid ja-border-grey ja-txt-grey ja-pt-2">
+						<div class="ja-col-6 ja-txt-bold">Urbain</div>
+						<div class="ja-col-6">{{ cUrban }}</div>
+					</div>
+					<div class="ja-row 2 ja-border-0 ja-border-bottom-1 ja-border-solid ja-border-grey ja-txt-grey ja-pt-2">
+						<div class="ja-col-6 ja-txt-bold">Extra-urbain</div>
+						<div class="ja-col-6">{{ cExtra }}</div>
+					</div>
+					<div class="ja-row 2 ja-border-0 ja-border-bottom-1 ja-border-solid ja-border-grey ja-txt-grey ja-pt-2">
+						<div class="ja-col-6 ja-txt-bold">Mixte</div>
+						<div class="ja-col-6">{{ cMixed }}</div>
+					</div>
+					<div class="ja-row 2 ja-border-0 ja-border-bottom-1 ja-border-solid ja-border-grey ja-txt-grey ja-pt-2">
+						<div class="ja-col-6 ja-txt-bold">Émission de CO2</div>
+						<div class="ja-col-6">{{ co2 }}</div>
+					</div>
+				</div>
+
+				<div class="ja-col-12 ja-border-0 ja-border-bottom-2 ja-border-solid ja-border-grey ja-p-1 ja-bg-grey ja-txt-bold ja-txt-2">
+					Dimensions et poids
+				</div>
+				<div class="ja-col-12">
+					<div class="ja-row 2 ja-border-0 ja-border-bottom-1 ja-border-solid ja-border-grey ja-txt-grey ja-pt-2">
+						<div class="ja-col-6 ja-txt-bold">Longueur</div>
+						<div class="ja-col-6">{{ length }} mm</div>
+					</div>
+					<div class="ja-row 2 ja-border-0 ja-border-bottom-1 ja-border-solid ja-border-grey ja-txt-grey ja-pt-2">
+						<div class="ja-col-6 ja-txt-bold">Largeur</div>
+						<div class="ja-col-6">{{ width }} mm</div>
+					</div>
+					<div class="ja-row 2 ja-border-0 ja-border-bottom-1 ja-border-solid ja-border-grey ja-txt-grey ja-pt-2">
+						<div class="ja-col-6 ja-txt-bold">Hauteur</div>
+						<div class="ja-col-6">{{ height }} mm</div>
+					</div>
+					<div class="ja-row 2 ja-border-0 ja-border-bottom-1 ja-border-solid ja-border-grey ja-txt-grey ja-pt-2">
+						<div class="ja-col-6 ja-txt-bold">Empattement</div>
+						<div class="ja-col-6">{{ wheelBase }} mm</div>
+					</div>
+					<div class="ja-row 2 ja-border-0 ja-border-bottom-1 ja-border-solid ja-border-grey ja-txt-grey ja-pt-2">
+						<div class="ja-col-6 ja-txt-bold">Poids total</div>
+						<div class="ja-col-6">{{ totalWeight }} kg</div>
+					</div>
+					<div class="ja-row 2 ja-border-0 ja-border-bottom-1 ja-border-solid ja-border-grey ja-txt-grey ja-pt-2">
+						<div class="ja-col-6 ja-txt-bold">Poids à vide avec conducteur</div>
+						<div class="ja-col-6">{{ emptyWeight }} kg</div>
+					</div>
+					<div class="ja-row 2 ja-border-0 ja-border-bottom-1 ja-border-solid ja-border-grey ja-txt-grey ja-pt-2">
+						<div class="ja-col-6 ja-txt-bold">Volume coffre minimum</div>
+						<div class="ja-col-6">{{ chestMin }} l</div>
+					</div>
+					<div class="ja-row 2 ja-border-0 ja-border-bottom-1 ja-border-solid ja-border-grey ja-txt-grey ja-pt-2">
+						<div class="ja-col-6 ja-txt-bold">Volume coffre maximum</div>
+						<div class="ja-col-6">{{ chestMax }} l</div>
+					</div>
+					<div class="ja-row 2 ja-border-0 ja-border-bottom-1 ja-border-solid ja-border-grey ja-txt-grey ja-pt-2">
+						<div class="ja-col-6 ja-txt-bold">Charge utile</div>
+						<div class="ja-col-6">{{  playload }} kg</div>
+					</div>
+					<div class="ja-row 2 ja-border-0 ja-border-bottom-1 ja-border-solid ja-border-grey ja-txt-grey ja-pt-2">
+						<div class="ja-col-6 ja-txt-bold">Charge sur toit</div>
+						<div class="ja-col-6">{{ roofload }} kg</div>
+					</div>
+				</div>
+			</div>
+
+			
+			<div class="ja-row">
+				<div class="ja-col-12 ja-border-0 ja-border-bottom-2 ja-border-solid ja-border-grey ja-mt-1">
+					<h2 class="ja-txt-grey ja-txt-3 ja-txt-bold ja-p-0 ja-m-0">Equipements</h2>
+				</div>
+				<div class="ja-col-12 ja-txt-light ja-pt-1">
+					{% for equipment in equipments %}
+								<p>{{ equipment.sWording }}</p>
+					{% endfor %}
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+#}

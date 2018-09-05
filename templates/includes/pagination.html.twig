@@ -1,0 +1,59 @@
+{# Recover pagination information #}
+{# totalRes #}{% set totalRes = totalRes %}
+{# Page #}{% set page = app.request.attributes.get("page") %}
+{# NbRes #}{% set nbRes = app.request.attributes.get("nb") %}
+{# Type #}{% set type = app.request.attributes.get("type")|lower %}
+{# NbPage #}{% set nbPage = (totalRes/nbRes) %}
+
+<div class="ja-row">
+	<div class="ja-col-12">
+		<nav class="ja-pagination-nav">
+			<ul class="ja-pagination">
+						
+				{% if page > 1 %}
+					<li>
+						<a href="{{ path('carlistBy', {'type':type, 'page':(page-1), 'nb' : nbRes}) }}"><span aria-hidden="true">«</span></a>
+					</li>
+				{% endif %}
+				
+				{% for i in 1..nbPage+1 %}
+					
+					{% if i == page %}
+						<li class="active">
+							{{ i }}
+						</li>
+					{% elseif page < 8 %}
+						{% if i < 10 or i > nbPage-1 %}
+							<li>
+								<a href="{{ path('carlistBy',{'type':type, 'page':i, 'nb':nbRes}) }}">{{ i }}</a>
+							</li>
+						{% endif %}
+						{% if i == 9 %}<li>...</li>{% endif %}
+					{% elseif page > nbPage-8 %}
+						{% if i < 3 or i > nbPage-10 %}
+							<li>
+								<a href="{{ path('carlistBy',{'type':type, 'page':i, 'nb':nbRes}) }}">{{ i }}</a>
+							</li>
+						{% endif %}
+						{% if i == 3 %}<li>...</li>{% endif %}
+					{% elseif page > 7 and page < nbPage-7 %}
+						{% if (i > page-4 and i < page+4) or i < 3 or i > nbPage-1 %}
+							<li>
+								<a href="{{ path('carlistBy',{'type':type, 'page':i, 'nb':nbRes}) }}">{{ i }}</a>
+							</li>
+						{% endif %}
+						{% if i == 3 or i == page+5 %}<li>...</li>{% endif %}
+					{% endif %}
+					
+				{% endfor %}
+				
+				{% if page < nbPage%}
+					<li>
+						<a href="{{ path('carlistBy', {'type':type, 'page':(page+1), 'nb' : nbRes}) }}"><span aria-hidden="true">»</span></a>
+					</li>
+				{% endif %}
+				
+			</ul>
+		</nav>
+	</div>
+</div>

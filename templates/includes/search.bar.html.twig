@@ -1,0 +1,191 @@
+{# stock #}{% set stock = app.request.attributes.get("type")|lower %}
+
+<section class="col-12 mt-5 mb-5">
+    <div class="ja-search-widget">
+        <input type="hidden" name="stock" value="{{ stock == 'vn' ? 0 : ( stock == 'vo' ? 1 : 2 ) }}"/>
+        <div class="row">
+            <div class="col">
+                <div class="row ja-search-widget-active-filter">
+                    {# Activating filters #}
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col">
+                <ul class="ja-search-widget-items row">
+
+                    <li class="ja-search-widget-filter col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                        <span class="ja-search-widget-title">
+                            Silhouette <i class="fas fa-chevron-down"></i>
+                        </span>
+                        
+                        <div class="d-none">
+                            <span class="ja-search-widget-filter-value">
+                                <select name="body" class="ja-search-widget-input" multiple value="{{ valueSearch.body is defined ? valueSearch.body | join(',') : '' }}">
+                                </select>                             
+                            </span>
+                        </div>
+                    </li>
+
+                    <li class="ja-search-widget-filter col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                        <span class="ja-search-widget-title">
+                            Marque <i class="fas fa-chevron-down"></i>
+                        </span>
+                        
+                        <div class="d-none">
+                            <span class="ja-search-widget-filter-value">
+                                <select name="brand" class="ja-search-widget-input" multiple value="{{ valueSearch.brand is defined ? valueSearch.brand | join(',') : '' }}">
+                                </select> 
+                            </span>
+                        </div>
+                    </li>
+
+                    <li class="ja-search-widget-filter col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                        <span class="ja-search-widget-title">
+                            Modèle <i class="fas fa-chevron-down"></i>
+                        </span>
+
+                        <div class="d-none">
+                            <span class="ja-search-widget-filter-value">
+                                <select name="brandModel" class="ja-search-widget-input" multiple value="{{ valueSearch.brandModel is defined ? valueSearch.brandModel | join(',') : '' }}">
+                                </select> 
+                            </span>
+                        </div>
+                    </li>
+
+                    <li class="ja-search-widget-filter col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                        <span class="ja-search-widget-title">
+                            Année <i class="fas fa-chevron-down"></i>
+                        </span>
+                        <div class="d-none">
+                            <span class="ja-search-widget-filter-value">
+                                <input type="text" name="yearMin" min=0 class="ja-search-widget-input" value="{{ valueSearch.yearMin is defined ? valueSearch.yearMin : '' }}"/>
+                                <input type="text" name="yearMax" class="ja-search-widget-input" value="{{ valueSearch.yearMax is defined ? valueSearch.yearMax : '' }}"/>
+                            </span>
+
+                            <div class="ja-search-widget-panel p-2">
+                                <div class="range-container" input-min=".ja-search-widget-input[name=yearMin]" input-max=".ja-search-widget-input[name=yearMax]" value-min="2000" value-max="{{ "now"|date("Y")  }}" value-step="1" ></div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="ja-search-widget-filter col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                        <span class="ja-search-widget-title">
+                            Energie <i class="fas fa-chevron-down"></i>
+                        </span>
+                        
+                        <div class="d-none">
+                            <span class="ja-search-widget-filter-value">
+                                <select name="energy" class="ja-search-widget-input" multiple value="{{ valueSearch.energy is defined ? valueSearch.energy | join(',') : '' }}">
+                                    <option></option>
+                                    <option value="essence">Essence</option>
+                                    <option value="diesel">Diesel</option>
+                                    <option value="electrique">Electrique</option>
+                                    <option value="hybrid">Hybrid</option>
+                                </select>
+                            </span>
+                        </div>
+                    </li>
+
+                    <li class="ja-search-widget-filter col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                        <span class="ja-search-widget-title">
+                            Budget <i class="fas fa-chevron-down"></i>
+                        </span>
+                        
+                        <div class="d-none">
+                            <span class="ja-search-widget-filter-value">
+                                <input type="number" name="priceMin" min=0 class="ja-search-widget-input" value="{{ valueSearch.priceMin is defined ? valueSearch.priceMin : '' }}"/>
+                                <input type="number" name="priceMax" class="ja-search-widget-input" value="{{ valueSearch.priceMax is defined ? valueSearch.priceMax : '' }}"/>
+                            </span>
+                            
+                            <div class="ja-search-widget-panel p-2">
+                                <div class="range-container" input-min=".ja-search-widget-input[name=priceMin]" input-max=".ja-search-widget-input[name=priceMax]" value-min="0" value-max="150000" value-step="5000" ></div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="ja-search-widget-filter col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                        <span class="ja-search-widget-title">
+                            Kilométrage <i class="fas fa-chevron-down"></i>
+                        </span>
+                        
+                        <div class="d-none">
+                            <span class="ja-search-widget-filter-value">
+                                <input type="number" name="kmMin" min=0 class="ja-search-widget-input" value="{{ valueSearch.kmMin is defined ? valueSearch.kmMin : '' }}"/>
+                                <input type="number" name="kmMax" class="ja-search-widget-input" value="{{ valueSearch.kmMax is defined ? valueSearch.kmMax : '' }}"/>
+                            </span>
+                            
+                            <div class="ja-search-widget-panel p-2">
+                                <div class="range-container" input-min=".ja-search-widget-input[name=kmMin]" input-max=".ja-search-widget-input[name=kmMax]" value-min="0" value-max="250000" value-step="25000" ></div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="ja-search-widget-filter col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                        <span class="ja-search-widget-title">
+                            Boîte <i class="fas fa-chevron-down"></i>
+                        </span>
+                        
+                        <div class="d-none">
+                            <span class="ja-search-widget-filter-value">
+                                <select name="trans" class="ja-search-widget-input" multiple value="{{ valueSearch.trans is defined ? valueSearch.trans | join(',') : '' }}">
+                                    <option></option>
+                                    <option value="1">Automatique</option>
+                                    <option value="2">Manuelle</option>
+                                    <option value="3">Séquentielle</option>
+                                </select>
+                            </span>
+                        </div>
+                    </li>
+
+                    <li class="ja-search-widget-filter col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                        <span class="ja-search-widget-title">
+                            Couleur <i class="fas fa-chevron-down"></i>
+                        </span>
+                        
+                        <div class="d-none">
+                            <span class="ja-search-widget-filter-value">
+                                <select name="color" class="ja-search-widget-input" multiple value="{{ valueSearch.color is defined ? valueSearch.color | join(',') : '' }}">
+                                </select>
+                            </span>
+                        </div>
+                    </li>
+
+                    <li class="ja-search-widget-filter col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                        <span class="ja-search-widget-title">
+                            Puissance <i class="fas fa-chevron-down"></i>
+                        </span>
+                        
+                        <div class="d-none">
+                            <span class="ja-search-widget-filter-value">
+                                <input type="number" name="chMin" min=0 class="ja-search-widget-input" value="{{ valueSearch.chMin is defined ? valueSearch.chMin : '' }}"/>
+                                <input type="number" name="chMax" max=600 class="ja-search-widget-input" value="{{ valueSearch.chMax is defined ? valueSearch.chMax : '' }}"/>
+                            </span>
+                            
+                            <div class="ja-search-widget-panel p-2">
+                                <div class="range-container" input-min=".ja-search-widget-input[name=chMin]" input-max=".ja-search-widget-input[name=chMax]" value-min="0" value-max="400" value-step="50" ></div>
+                            </div>
+                        </div>
+                    </li>
+                    
+                    <li class="ja-search-widget-filter col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                        <span class="ja-search-widget-title">
+                            Département <i class="fas fa-chevron-down"></i>
+                        </span>
+                        
+                        <div class="d-none">
+                            <span class="ja-search-widget-filter-value">
+                                <select name="location" class="ja-search-widget-input" multiple value="{{ valueSearch.location is defined ? valueSearch.location | join(',') : '' }}">
+                                </select>
+                            </span>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+</section>

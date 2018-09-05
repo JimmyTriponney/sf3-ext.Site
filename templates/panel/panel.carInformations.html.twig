@@ -1,0 +1,38 @@
+<div class="row">
+	<div class="col-12 p-2">
+		{% if date().date|date('d/m/Y') != mec %}
+			<div class="row mb-1">
+				<div class="col-6 ja-txt-1"><h3 class="ja-txt-none ja-txt-light m-0">Date d'immatriculation</h3></div>
+				<div class="col-6 ja-txt-1 ja-txt-bold">{{ mec }}</div>
+			</div>
+		{% endif %}
+
+		{% if guarantee %}
+			<div class="row mb-1">
+				<div class="col-6 ja-txt-1"><h3 class="ja-txt-none ja-txt-light m-0">Garantie</h3></div>
+				<div class="col-6 ja-txt-1 ja-txt-bold">{{ guarantee }}</div>
+			</div>
+			<div class="row mb-1">
+				<div class="col-6 ja-txt-1"><h3 class="ja-txt-none ja-txt-light m-0">Durée de la garantie</h3></div>
+				<div class="col-6 ja-txt-1 ja-txt-bold">{{ guaranteeLen }}</div>
+			</div>
+		{% endif %}
+
+		<div class="row mb-1">
+			<div class="col-6 ja-txt-1"><h3 class="ja-txt-none ja-txt-light m-0">Peinture métallisée</h3></div>
+			<div class="col-6 ja-txt-1 ja-txt-bold">{{ colorMetal }}</div>
+		</div>
+		<div class="row mb-1">
+			<div class="col-6 ja-txt-1"><h3 class="ja-txt-none ja-txt-light m-0">Couleur extérieure</h3></div>
+			<div class="col-6 ja-txt-1 ja-txt-bold">{{ colorOut|lower|capitalize }}</div>
+		</div>
+		<div class="row mb-1">
+			<div class="col-6 ja-txt-1"><h3 class="ja-txt-none ja-txt-light m-0">Couleur intérieure</h3></div>
+			<div class="col-6 ja-txt-1 ja-txt-bold">{{ colorIn|lower|capitalize }}</div>
+		</div>
+		<div class="row">
+			<div class="col-6 ja-txt-1"><h3 class="ja-txt-none ja-txt-light m-0">Référence</h3></div>
+			<div class="col-6 ja-txt-1 ja-txt-bold">{{ ref }}</div>
+		</div>
+	</div>
+</div>
