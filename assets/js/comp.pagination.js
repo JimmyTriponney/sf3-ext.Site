@@ -29,57 +29,71 @@ $.fn.jaPagination = function(data = null){
     let
         container       = $(this),//Conteneur de page
         selElement      = '.template',//data && data.selElement ? data.selElement : false,//Element a chunk par page
-        elPage          = data && data.elPage ? data.elPage : 12,//Element à afficher par page
+        elPageInit      = data && data.elPage ? data.elPage : 12,//Element à afficher par page en desktop
         nbRows          = data && data.nbRows ? data.nbRows : 4,
         pageStart       = data && data.pageStart ? data.pageStart : 1,
 
         classPaginationContainer    = 'pagination-container',
         classPaginationNav          = 'ja-pagination-nav',
         classPaginationBar          = 'ja-pagination',
-        classPaginationButton       = 'pagination-button'
+        classPaginationButton       = 'pagination-button',
+        elPage = 0
     ;
 
     //Initialisation du plugin à la déclaration
     function init(){
+        elPage = getElPage();
         showPaginationBar(1);//Affichage de la barre de pagination
         showPage(1);//Afficher la page une et masquer les autres éléments
     }
 
+    function getElPage(){
+        docWidth = $(document).width();
 
+        //Calcul du nombre d'éléments par page en fonction de la taille d'affichage
+        if( 0 < docWidth && docWidth < 768 ) elPage = elPageInit / 3;
+        else if( 767 < docWidth && docWidth < 1200 ) elPage = (elPageInit / 3) * 2;
+        else elPage = elPageInit;
 
-
-
+        return elPage;
+    }
 
     //Afficher les élement correspondants à la page demandé en index
     function showPage(index){
         let countEl = countElement(),
-            countShow = 1;
-        if( countEl > 0  && index > 0 && index <= countPage() ){
-            let elements = getElements();
-            
-            for(var i = 0; i < countEl; i++){
+            countShow = 1,
+            elPage = getElPage();
 
+        //Je vérifie qu'il y ai plus de 0 élément, et que la page à afficher soit entre 1 et le nombre de page max compris
+        if( countEl > 0  && index > 0 && index <= countPage() ){
+            //Récupération de tous les éléments
+            let elements = getElements();
+
+            //Itération sur tous les éléments
+            for( let i = 0; i < countEl; i++ ) {
+
+                //Retrait des class css mise en place par cette fonction précédement
                 $(elements[i])
                     .removeClass('d-none')
-                    .removeClass('d-sm-block')
+                    .removeClass('d-md-block')
                     .removeClass('d-lg-block');
 
+                //Affichage des éléments ou masquage
                 if(i < (elPage*(index-1)) || i >= (elPage*index) ){
                     $(elements[i]).addClass('hide');
                 }
                 else{
                     $(elements[i]).removeClass('hide');
-                    
-                    if(countShow > nbRows) $(elements[i]).addClass('d-none');
-                    if(countShow > nbRows && countShow < (nbRows * 2 + 1) ) $(elements[i]).addClass('d-sm-block');
-                    if(countShow > (nbRows * 2) && countShow < (nbRows * 3 + 1) ) $(elements[i]).addClass('d-lg-block');
+                
+                    //Ajout de class css afin de masquer certains éléments si la largueur de la page change
+                    //Les éléments qui vont jusqu'au mobile ne change pas
+                    if( countShow > (elPageInit / 3) && countShow <= ((elPageInit / 3) * 2) ) $(elements[i]).addClass('d-none d-md-block');//Les élément de SM a LG
+                    else if( countShow > ((elPageInit / 3) * 2) ) $(elements[i]).addClass('d-none d-lg-block');//Les éléments à partir de LG                    
 
                     countShow++;
                 }
+
             }
-            
-            activeButton(index);
-            container.attr('page',index);
         }
     }
 
@@ -88,11 +102,6 @@ $.fn.jaPagination = function(data = null){
         $('.'+classPaginationContainer).find('.'+classPaginationButton).removeClass('active');
         $('.'+classPaginationContainer).find('.'+classPaginationButton+'[page='+index+']').addClass('active');
     }
-
-
-
-
-
 
 
     /*
@@ -150,18 +159,22 @@ $.fn.jaPagination = function(data = null){
                 if(iMin > 2) html.find('.'+classPaginationBar).prepend(createButtonPaginationOther());
                 html.find('.'+classPaginationBar).prepend(createButtonPagination(1));
             }
-            if(iMax < nbPage + 1){
+            if(iMax < nbPage ){
                 if(iMax < nbPage - 1) html.find('.'+classPaginationBar).append(createButtonPaginationOther());
                 html.find('.'+classPaginationBar).append(createButtonPagination(nbPage));
             }
 
             //Ajout du bouton d'accès direct à la page suivante ou précédente
+            html.find('.'+classPaginationBar).prepend(createButtonPagination1('start'));
+            html.find('.'+classPaginationBar).append(createButtonPagination1('end'));
+
+            //Ajout du bouton d'accès direct à la 5éme page suivante ou précédente
             html.find('.'+classPaginationBar).prepend(createButtonPagination5('start'));
             html.find('.'+classPaginationBar).append(createButtonPagination5('end'));
 
             //Ajout du bouton d'accès direct à la page une ou de fin
-            html.find('.'+classPaginationBar).prepend(createButtonPaginationStartEnd('start'));
-            html.find('.'+classPaginationBar).append(createButtonPaginationStartEnd('end'));
+            if( page > 1 ) html.find('.'+classPaginationBar).prepend(createButtonPaginationStartEnd('start'));
+            if( page < nbPage ) html.find('.'+classPaginationBar).append(createButtonPaginationStartEnd('end'));
 
             return html;
         }
@@ -170,7 +183,7 @@ $.fn.jaPagination = function(data = null){
 
     //Créer le bouton de sélectiond de page
     function createButtonPagination(index){
-        let html = $('<li class="'+classPaginationButton+'" page="'+index+'">'+index+'</li>');
+        let html = $('<li class="'+classPaginationButton+' d-none d-sm-inline" page="'+index+'">'+index+'</li>');
         html.on('click', onChangePage);
         return html;
     }
@@ -178,8 +191,15 @@ $.fn.jaPagination = function(data = null){
     //Créer le bouton de début et de fin
     function createButtonPaginationStartEnd(position){
         let targetPage = position === 'start' ? 1 : countPage(),
-            html = $('<li class="'+classPaginationButton+'" page="'+targetPage+'">'+( position === 'start' ? '|<<' : '>>|' )+'</li>');
+            html = $('<li class="'+classPaginationButton+' d-none d-sm-inline" page="'+targetPage+'">'+( position === 'start' ? '|<<' : '>>|' )+'</li>');
         html.on('click', onChangePage);
+        return html;
+    }
+    
+    //Créer le bouton -1 & +1
+    function createButtonPagination1(position){
+        let html = $('<li class="'+classPaginationButton+' d-sm-none d-inline" style="'+( position === 'start' ? 'margin-right: 10px;' : 'margin-left: 10px;' )+'" page="'+( position === 'start' ? 'moins' : 'plus' )+'">'+( position === 'start' ? '|<' : '>|' )+'</li>');
+        html.on('click', onChangePage1);
         return html;
     }
 
@@ -218,12 +238,28 @@ $.fn.jaPagination = function(data = null){
         }
     }
 
-    //Changer d'une page
+    //Changer de 5 pages
     function onChangePage5(){
         if( !$(this).is('.active') ){
             let currentPage = container.attr('page'),
                 action = $(this).attr('page'),
                 pageTarget = action === 'moins' ? parseInt(currentPage)-5 : parseInt(currentPage)+5,
+                nbPage = countPage();
+
+            pageTarget = pageTarget > 0 ? pageTarget : 1; 
+            pageTarget = pageTarget <= nbPage ? pageTarget : nbPage;
+        
+            showPage(pageTarget);
+            showPaginationBar(pageTarget);
+        }
+    }
+
+    //Changer d'une page
+    function onChangePage1(){
+        if( !$(this).is('.active') ){
+            let currentPage = container.attr('page'),
+                action = $(this).attr('page'),
+                pageTarget = action === 'moins' ? parseInt(currentPage)-1 : parseInt(currentPage)+1,
                 nbPage = countPage();
 
             pageTarget = pageTarget > 0 ? pageTarget : 1; 

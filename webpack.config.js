@@ -11,7 +11,7 @@ Encore
     //.enableVersioning(Encore.isProduction())
 
     // uncomment to define the assets of the project
-    //.addEntry('js/font-awesome', './assets/js/font-awesome/svg-with-js/js/fontawesome.min.js')
+    .addEntry('js/font-awesome', './assets/js/font-awesome/svg-with-js/js/fontawesome.min.js')
     .addEntry('js/app', './assets/js/app.js')
     .addEntry('js/comp.collapse', './assets/js/comp.collapse.js')
     .addEntry('js/comp.carrousel', './assets/js/comp.carrousel.js')
