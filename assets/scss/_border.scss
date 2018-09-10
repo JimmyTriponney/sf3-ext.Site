@@ -1,0 +1,149 @@
+/* Border-color */
+@each $name,$color in $colors
+{
+	%border-#{$name}{ @include borderColor('', $color); }
+	%border-top-#{$name}{ @include borderColor(top, $color); }
+	%border-right-#{$name}{ @include borderColor(right, $color); }
+	%border-bottom-#{$name}{ @include borderColor(bottom, $color); }
+	%border-left-#{$name}{ @include borderColor(left, $color); }
+
+	.#{$prefixe}-border-#{$name}{ @extend %border-#{$name}; }
+	.#{$prefixe}-border-top-#{$name}{ @extend %border-top-#{$name !important}; }
+	.#{$prefixe}-border-right-#{$name}{ @extend %border-right-#{$name !important}; }
+	.#{$prefixe}-border-bottom-#{$name}{ @extend %border-bottom-#{$name !important}; }
+	.#{$prefixe}-border-left-#{$name}{ @extend %border-left-#{$name !important}; }
+}
+
+/* Border-size */
+@each $lev, $val in $sizeBorder
+{
+	%border-#{$lev}{ @include borderWidth('', $val); }
+	%border-top-#{$lev}{ @include borderWidth(top, $val !important); }
+	%border-right-#{$lev}{ @include borderWidth(right, $val !important); }
+	%border-bottom-#{$lev}{ @include borderWidth(bottom, $val !important); }
+	%border-left-#{$lev}{ @include borderWidth(left, $val !important); }
+
+	.#{$prefixe}-border-#{$lev}{ @extend %border-#{$lev}; }
+	.#{$prefixe}-border-top-#{$lev}{ @extend %border-top-#{$lev}; }
+	.#{$prefixe}-border-right-#{$lev}{ @extend %border-right-#{$lev}; }
+	.#{$prefixe}-border-bottom-#{$lev}{ @extend %border-bottom-#{$lev}; }
+	.#{$prefixe}-border-left-#{$lev}{ @extend %border-left-#{$lev}; }
+}
+
+/* Border-radius */
+@each $lev, $val in $sizeRadius
+{
+	%border-radius-#{$lev}{ @include borderRadius('', '', $val); }
+	%border-top-left-radius-#{$lev}{ @include borderRadius(left, top, $val !important); }
+	%border-top-right-radius-#{$lev}{ @include borderRadius(right, top, $val !important); }
+	%border-bottom-right-radius-#{$lev}{ @include borderRadius(right, bottom, $val !important); }
+	%border-bottom-left-radius-#{$lev}{ @include borderRadius(left, bottom, $val !important); }
+
+	.#{$prefixe}-border-radius-#{$lev}{ @extend %border-radius-#{$lev}; }
+	.#{$prefixe}-border-top-left-radius-#{$lev}{ @extend %border-top-left-radius-#{$lev}; }
+	.#{$prefixe}-border-top-right-radius-#{$lev}{ @extend %border-top-right-radius-#{$lev}; }
+	.#{$prefixe}-border-bottom-right-radius-#{$lev}{ @extend %border-bottom-right-radius-#{$lev}; }
+	.#{$prefixe}-border-bottom-left-radius-#{$lev}{ @extend %border-bottom-left-radius-#{$lev}; }
+}
+
+/* Border style */
+@each $style in $borderStyle
+{
+	%border-#{$style}{ @include borderStyle('', $style); }
+	%border-top-#{$style}{ @include borderStyle(top, $style !important); }
+	%border-right-#{$style}{ @include borderStyle(right, $style !important); }
+	%border-bottom-#{$style}{ @include borderStyle(bottom, $style !important); }
+	%border-left-#{$style}{ @include borderStyle(left, $style !important); }
+
+	.#{$prefixe}-border-#{$style}{ @extend %border-#{$style}; }
+	.#{$prefixe}-border-top-#{$style}{ @extend %border-top-#{$style}; }
+	.#{$prefixe}-border-right-#{$style}{ @extend %border-right-#{$style}; }
+	.#{$prefixe}-border-bottom-#{$style}{ @extend %border-bottom-#{$style}; }
+	.#{$prefixe}-border-left-#{$style}{ @extend %border-left-#{$style}; }
+}
+
+/* break */
+@each $nameB, $break in $breakpoint
+{
+	@media all and (min-width: $break)
+	{
+		/* Border-color */
+		@each $name,$color in $colors
+		{
+			%border-color-#{$nameB}-#{$name}{ @include borderColor('', $color); }
+			%border-top-color-#{$nameB}-#{$name}{ @include borderColor(top, $color !important); }
+			%border-right-color-#{$nameB}-#{$name}{ @include borderColor(right, $color !important); }
+			%border-bottom-color-#{$nameB}-#{$name}{ @include borderColor(bottom, $color !important); }
+			%border-left-color-#{$nameB}-#{$name}{ @include borderColor(left, $color !important); }
+
+			.#{$prefixe}-border-color-#{$nameB}-#{$name}{ @extend %border-color-#{$nameB}-#{$name}; }
+			.#{$prefixe}-border-top-color-#{$nameB}-#{$name}{ @extend %border-top-color-#{$nameB}-#{$name}; }
+			.#{$prefixe}-border-right-color-#{$nameB}-#{$name}{ @extend %border-right-color-#{$nameB}-#{$name}; }
+			.#{$prefixe}-border-bottom-color-#{$nameB}-#{$name}{ @extend %border-bottom-color-#{$nameB}-#{$name}; }
+			.#{$prefixe}-border-left-color-#{$nameB}-#{$name}{ @extend %border-left-color-#{$nameB}-#{$name}; }
+		}
+
+		/* Border-size */
+		@each $lev, $val in $sizeBorder
+		{
+			%border-#{$nameB}-#{$lev}{ @include borderWidth('', $val); }
+			%border-top-#{$nameB}-#{$lev}{ @include borderWidth(top, $val !important); }
+			%border-right-#{$nameB}-#{$lev}{ @include borderWidth(right, $val !important); }
+			%border-bottom-#{$nameB}-#{$lev}{ @include borderWidth(bottom, $val !important); }
+			%border-left-#{$nameB}-#{$lev}{ @include borderWidth(left, $val !important); }
+
+			.#{$prefixe}-border-#{$nameB}-#{$lev}{ @extend %border-#{$nameB}-#{$lev}; }
+			.#{$prefixe}-border-top-#{$nameB}-#{$lev}{ @extend %border-top-#{$nameB}-#{$lev}; }
+			.#{$prefixe}-border-right-#{$nameB}-#{$lev}{ @extend %border-right-#{$nameB}-#{$lev}; }
+			.#{$prefixe}-border-bottom-#{$nameB}-#{$lev}{ @extend %border-bottom-#{$nameB}-#{$lev}; }
+			.#{$prefixe}-border-left-#{$nameB}-#{$lev}{ @extend %border-left-#{$nameB}-#{$lev}; }
+		}
+
+		/* Border-radius */
+		@each $lev, $val in $sizeRadius
+		{
+			%border-radius-#{$nameB}-#{$lev}{ @include borderRadius('', '', $val); }
+			%border-top-left-radius-#{$nameB}-#{$lev}{ @include borderRadius(left, top, $val !important); }
+			%border-top-right-radius-#{$nameB}-#{$lev}{ @include borderRadius(right, top, $val !important); }
+			%border-bottom-right-radius-#{$nameB}-#{$lev}{ @include borderRadius(right, bottom, $val !important); }
+			%border-bottom-left-radius-#{$nameB}-#{$lev}{ @include borderRadius(left, bottom, $val !important); }
+
+			.#{$prefixe}-border-radius-#{$nameB}-#{$lev}{ @extend %border-radius-#{$nameB}-#{$lev}; }
+			.#{$prefixe}-border-top-left-radius-#{$nameB}-#{$lev}{ @extend %border-top-left-radius-#{$nameB}-#{$lev}; }
+			.#{$prefixe}-border-top-right-radius-#{$nameB}-#{$lev}{ @extend %border-top-right-radius-#{$nameB}-#{$lev}; }
+			.#{$prefixe}-border-bottom-right-radius-#{$nameB}-#{$lev}{ @extend %border-bottom-right-radius-#{$nameB}-#{$lev}; }
+			.#{$prefixe}-border-bottom-left-radius-#{$nameB}-#{$lev}{ @extend %border-bottom-left-radius-#{$nameB}-#{$lev}; }
+		}
+
+		/* Border style */
+		@each $style in $borderStyle
+		{
+			%border-#{$nameB}-#{$style}{ @include borderStyle('', $style); }
+			%border-top-#{$nameB}-#{$style}{ @include borderStyle(top, $style !important); }
+			%border-right-#{$nameB}-#{$style}{ @include borderStyle(right, $style !important); }
+			%border-bottom-#{$nameB}-#{$style}{ @include borderStyle(bottom, $style !important); }
+			%border-left-#{$nameB}-#{$style}{ @include borderStyle(left, $style !important); }
+
+			.#{$prefixe}-border-#{$nameB}-#{$style}{ @extend %border-#{$nameB}-#{$style}; }
+			.#{$prefixe}-border-top-#{$nameB}-#{$style}{ @extend %border-top-#{$nameB}-#{$style}; }
+			.#{$prefixe}-border-right-#{$nameB}-#{$style}{ @extend %border-right-#{$nameB}-#{$style}; }
+			.#{$prefixe}-border-bottom-#{$nameB}-#{$style}{ @extend %border-bottom-#{$nameB}-#{$style}; }
+			.#{$prefixe}-border-left-#{$nameB}-#{$style}{ @extend %border-left-#{$nameB}-#{$style}; }
+		}
+	}
+}
+
+/* Stripe */
+.#{$prefixe}-stripe
+{
+	@extend %border-left-0;
+	@extend %border-top-0;
+	@extend %border-bottom-0;
+	@extend %border-right-1;
+	@extend %border-red;
+	@extend %border-solid;
+	@extend %pl-2;
+	@extend %pr-2;
+	@extend %pt-1;
+	@extend %pb-1;
+}

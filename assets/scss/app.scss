@@ -1,0 +1,522 @@
+@import 'bootstrap/scss/bootstrap.scss';
+
+@import '_setting.scss';
+@import '_function.scss';
+@import '_mixin.scss';
+
+@import '_text.scss';
+@import '_overflow.scss';
+@import '_color.scss';
+@import '_size.scss';
+@import '_margin.scss';
+@import '_border.scss';
+@import '_positioning.scss';
+@import '_visibility.scss';
+@import '_zindex.scss';
+
+@import '_keyframes.scss';
+
+/*@import '_grid.scss';*/
+
+@import 'comp.media.scss';
+@import 'comp.badge.scss';
+@import 'comp.button.scss';
+
+@import 'comp.collapse.scss';
+@import 'comp.modal.scss';
+@import 'comp.form.scss';
+@import 'comp.search.scss';
+/*@import 'comp.carrousel.scss';*/
+/*@import 'comp.product.scss';*/
+
+
+*,
+*::before,
+*::after
+{
+	box-sizing : border-box;
+	-ms-text-size-adjust:100%;
+	-webkit-text-size-adjust:100%;
+	font-family : Arial, Helvetica, sans-serif;
+}
+
+body
+{
+	background : none transparent;
+	overflow-x : hidden;
+	font-size : $fontOrigin;
+	font-family : "Droid Sans", Arial, sans-serif;
+	margin : 0;
+
+	@extend %color-black;
+}
+
+.row{
+    margin : 0;
+}
+
+
+%pagination
+{
+	text-align : center;
+	
+	.ja-pagination
+	{
+		margin : 20px 0;
+		border-radius : 4px;
+		
+		& li
+		{
+            padding: 10px 20px;
+            margin: 0 2px;
+			display : inline;
+            @extend %color-white;
+            @extend %bg-grey;
+            cursor: pointer;
+            
+            @include transition(color);
+            @include transition(background);
+
+            &.active,&:hover{
+                @extend %bg-grey-30;
+                @extend %color-grey;
+            }
+						
+		}
+		
+		& li:first-child
+		{
+			border-bottom-left-radius: 4px;
+			border-top-left-radius: 4px;
+		}
+		& li:last-child
+		{
+			border-bottom-right-radius: 4px;
+			border-top-right-radius: 4px;
+		}
+	}
+}
+
+%headerFiche
+{
+	background: #121e24;
+    color: #fff;
+    margin: -20px 0 15px 0;
+    padding: 40px 0 20px 0;
+	
+	h1
+	{
+		font-size: 16px;
+		font-weight: 400;
+		text-transform: uppercase;
+		line-height: 1.1;
+		
+		span
+		{
+			font-size: 24px;
+			font-weight: 700;
+		}
+	}
+	
+	h2
+	{
+		font-size: 16px;
+		font-weight: 400;
+	}
+	
+	.ref
+	{
+		font-size: 12px;
+		font-weight: 400;
+	}
+	
+	.ja-price
+	{
+		
+		&::after
+		{
+			@extend %bg-blue;
+		}
+		
+	}
+	
+	.ja-head-info
+	{
+		font-size: 16px;
+	}
+}
+
+.container-fluid{
+    padding: 0;
+}
+
+/* Style */
+.ja-pagination-nav
+{
+    @extend %pagination;
+    
+    .pagination-button{
+        cursor: pointer;
+        @include transition(color);
+
+        &.active,&:hover{
+            @extend %color-blue;
+        }
+    }
+}
+
+#pageResult{
+    .template{
+        &.hide{
+            display: none;
+        }
+    }
+}
+
+.ja-fiche-head
+{
+	@extend %headerFiche;
+}
+
+.ja-car-view
+{
+	.ja-info-name
+	{
+		font-size: 16px;
+		text-transform: uppercase;
+		font-weight: 700;
+	}
+	
+}
+
+/* Printable */
+.print-section 
+{
+    @include display(none);
+}
+
+@media print
+{
+    .print-section
+    {
+        @include display(block !important);
+    }
+    
+    .no-print
+    {
+        @include display(none !important);
+    }
+}
+
+
+
+
+
+
+
+
+/* New for preview */
+$black-50 : rgba(0,0,0,0.5);
+$black: #000000;
+$white    : #ffffff;
+
+a, a:hover{
+    text-decoration: none;
+}
+
+.car-card-preview{
+
+    a{ @extend %color-white; @extend %display-block; }
+
+
+    padding-top: 50px;
+    position: relative;
+    margin-bottom : 5px;
+    @extend %pb-0;
+
+    
+
+    & .car-card-preview-title-view{
+        
+        position: absolute;
+        top : 0;
+        left : 0;
+        color: $black;
+        z-index: 1;
+        font-weight: 700;
+        @extend %bg-white;
+        @extend %p-2;
+        @extend %pl-3;
+
+        & .brand{
+            @extend %txt-2;
+        }
+        
+        & .model{
+            @extend %txt-1;
+            line-height: 0.5em;
+        }
+    }
+
+   
+
+    .showDetails{
+        cursor: pointer;
+        @extend %display-flex;
+        @extend %color-white;
+        @extend %width-100;
+        font-size: 0.8em;
+        padding: 0 5px;
+        position: absolute;
+        z-index: 5;
+        bottom: 35px;
+        left: 0;
+        font-weight: 700;
+        opacity: 1;
+
+        @include transition(opacity);
+
+        @include flexCss(align-items, center);
+        @include flexCss(justify-content, center);
+        /*.details{
+            font-size: 0.5em;
+            font-weight: 100;
+            margin-right: 5px
+        }*/
+    }
+
+    &:hover .showDetails{
+        opacity: 0;
+    }
+
+    .car-card-preview-image{
+        width: 100%;
+        /*height: 100%;*/
+        margin: 0;
+		background: $black;
+		filter: contrast(110%);
+    }
+
+    .car-card-preview-content{
+        width : 100%;
+        height: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: 5;
+        line-height: 1.5em;
+        @extend %pb-0;
+
+        .car-card-preview-description{
+            display: flex;
+            align-items: center;
+            //position : absolute;
+            padding: 5px 20px;
+            padding-bottom: 150px;
+            //top : 0;
+            height: 100%;
+            background: $black-50;
+            color: $white;
+            font-size: 1em;
+            letter-spacing: 0.2em;
+            font-weight: 100;
+
+        }
+
+        .car-card-preview-title{
+            border-bottom: 1px white solid;
+            width: 100%;
+            line-height: 1em;
+            padding-left: 20px;
+			padding-bottom: 10px;
+			padding-top: 10px;
+			margin-bottom: 10px;
+            .brand{
+				font-weight: 900;
+				padding-bottom: 10px;
+            }
+            .model{
+                @extend %txt-1;
+                line-height: 0.5em;
+            }
+        }
+
+        .car-card-preview-link{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            padding-top: 5px;
+            border-top: 1px white solid;
+            font-size: 1em;
+            letter-spacing: 0.5em;
+            font-weight: 100;
+            height: 80px;
+            width: 70%;
+            margin-left: 15%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+
+            *{
+                text-align: center;
+            }
+        }
+
+    }
+
+    .car-card-preview-price{
+        position: relative;
+        text-align: center;
+        @extend %bg-blue;
+        color: $white;
+        width: 100%;
+        z-index: 10;
+        font-size: 1.5em;
+        font-weight: 100;
+        letter-spacing: 0.3em;
+    }
+
+}
+
+.actif-filter{
+    position: relative;
+    cursor: pointer;
+    padding: 5px;
+    padding-left: 15px;
+    border : 1px solid grey;
+    @extend %border-radius-1;
+    margin: 5px;
+    font-size: 1em;
+    @extend %bg-grey-light;
+    opacity: 1;
+    @include transition(opacity);
+
+    .value{
+        padding: 5px 5px;
+        @extend %bg-white;
+        @extend %border-radius-1;
+    }
+
+    &:hover{
+        opacity: 0.5;
+    }
+
+
+}
+
+.ja-search-widget-active-filter{
+    padding: 5px 2px;
+    @extend %pt-3;
+    @extend %pb-3;
+    @extend %pr-1;
+    @extend %pl-1;
+    @extend %display-flex;
+    @include flexCss( justify-content, flex-start );
+}
+
+
+#pageResult{
+    justify-content: center;
+}
+
+
+
+.hover-box{
+
+    position: relative;
+    overflow: hidden;
+
+    /*
+        Slide up on hover .hover-box
+    */
+    .hover-slideup   {
+        position: absolute !important;
+        top: 100% !important;
+
+        transition: top 0.5s;
+    }
+
+    &:hover .hover-slideup{
+        top: 0 !important;
+    }
+    
+    /*
+        Slide down on hover .hover-box
+    */
+    .hover-slidedown   {
+        position: absolute !important;
+        top: -100% !important;
+
+        transition: top 0.5s;
+    }
+
+    &:hover .hover-slidedown{
+        top: 0 !important;
+    }
+
+    
+    /*
+        Zoom on hover .hover-box
+    */
+    .hover-zoom{
+        transform: scale(1);
+        transition : transform 1s;
+    }
+
+    &:hover .hover-zoom{
+        transform: scale(1.5);
+    }
+
+    /*
+        Blur on hover .hover-box
+    */
+    .hover-blur{
+        filter: blur(0);
+        transition : filter 1s;
+    }
+
+    &:hover .hover-blur{
+        filter: blur(5px);
+    }
+
+    /*
+        Greyscale on hover .hover-box
+    */
+    .hover-grey{
+        filter: grayscale(0);
+        transition : filter 1s;
+    }
+
+    &:hover .hover-grey{
+        filter: grayscale(100%);
+    }
+
+}
+
+/*
+    Zoom on hover
+*/
+.hover-zoom-solo{
+    transform: scale(1);
+    transition : transform 0.5s;
+}
+
+.hover-zoom-solo:hover{
+    transform: scale(1.5);
+}
+
+
+/*
+    Diszoom on click
+*/
+.click-diszoom-solo{
+    transform: scale(1);
+    transition : transform 0.5s;
+}
+.click-diszoom-solo:active{
+    transform: scale(0.5);
+}
+
+.rotate180{
+	transform: rotate(180deg);
+}

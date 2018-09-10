@@ -1,0 +1,112 @@
+/* Color */
+@each $name,$color in $colors
+{
+	%color-#{$name}{ @include color($color); }
+
+	@each $a in $alpha
+	{
+		@if $name != transparent
+		{
+			%color-#{$name}-#{$a}{ @include color(rgba( red($color), green($color), blue($color), ($a/100))); }
+
+			.#{$prefixe}-txt-#{$name}-#{$a}{ @extend %color-#{$name}-#{$a}; }
+		}
+	}
+
+	.#{$prefixe}-txt-#{$name}{ @extend %color-#{$name}; }
+}
+
+/* Font-size & Line-height */
+@each $lev, $val in $sizeEm
+{
+	%txt-#{$lev}{ @include fontSize($val); }
+	%line-height-#{$lev}{ @include lineHeight($val); }
+
+	.#{$prefixe}-txt-#{$lev}{ @extend %txt-#{$lev}; }
+	.#{$prefixe}-line-height-#{$lev}{ @extend %line-height-#{$lev}; }
+}
+
+/* Font-weight */
+@each $lev, $weight in $fontWeight
+{
+	%txt-#{$lev}{ @include fontWeight($weight); }
+
+	.#{$prefixe}-txt-#{$lev}{ @extend %txt-#{$lev}; }
+}
+
+/* Text-align */
+@each $lev, $al in $align
+{
+	%txt-#{$lev}{ @include txtAlign($al); }
+
+	.#{$prefixe}-txt-#{$lev}{ @extend %txt-#{$lev}; }
+}
+
+/* Text-transform */
+@each $lev, $trans in $textTransform
+{
+	%txt-#{$lev}{ @include textTransform($trans); }
+
+	.#{$prefixe}-txt-#{$lev}{ @extend %txt-#{$lev}; }
+}
+
+/* Break */
+@each $name, $break in $breakpoint
+{
+	@media all and (min-width: $break)
+	{
+		/* Color */
+		@each $lev,$color in $colors
+		{
+			%color-#{$name}-#{$lev}{ @include color($color); }
+
+			@each $a in $alpha
+			{
+				@if $lev != transparent
+				{
+					%color-#{$name}-#{$lev}-#{$a}{ @include color(rgba( red($color), green($color), blue($color), ($a/100))); }
+
+					.#{$prefixe}-txt-#{$name}-#{$lev}-#{$a}{ @extend %color-#{$name}-#{$lev}-#{$a}; }
+				}
+			}
+
+			.#{$prefixe}-txt-#{$name}-#{$lev}{ @extend %color-#{$name}-#{$lev}; }
+		}
+
+		/* Text-align */
+		@each $lev, $align in $align
+		{
+			%txt-#{$name}-#{$lev}{ @include txtAlign($align); }
+
+			.#{$prefixe}-txt-#{$name}-#{$lev}{ @extend %txt-#{$name}-#{$lev}; }
+		}
+
+		/* Text-transform */
+		@each $lev, $trans in $textTransform
+		{
+			%txt-#{$name}-#{$lev}{ @include textTransform($trans); }
+
+			.#{$prefixe}-txt-#{$name}-#{$lev}{ @extend %txt-#{$name}-#{$lev}; }
+		}
+
+		/* Font-size & Line-height */
+		@each $lev, $val in $sizeEm
+		{
+			%txt-#{$name}-#{$lev}{ @include fontSize($val); }
+			%line-height-#{$name}-#{$lev}{ @include lineHeight($val); }
+
+			.#{$prefixe}-txt-#{$name}-#{$lev}{ @extend %txt-#{$name}-#{$lev}; }
+			.#{$prefixe}-line-height-#{$name}-#{$lev}{ @extend %line-height-#{$name}-#{$lev}; }
+		}
+
+		/* Font-weight */
+		@each $lev, $weight in $fontWeight
+		{
+			%txt-#{$name}-#{$lev}{ @include fontWeight($weight); }
+
+			.#{$prefixe}-txt-#{$name}-#{$lev}{ @extend %txt-#{$name}-#{$lev}; }
+		}
+
+
+	}
+}

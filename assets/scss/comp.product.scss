@@ -1,0 +1,107 @@
+/* Product preview */
+
+/*****************************
+	Example :
+
+	<div class="ja-prev-product-container">
+		
+		<div class="ja-row">
+			<figure class="ja-row ja-thumbnail">
+			 	PICTURE
+			</figure>
+
+			<div class="ja-row ja-header">
+				TEXT
+			</div>
+		</div>
+
+		
+		<div class="ja-row">
+			<div class="ja-row ja-content">
+				TEXT
+			</div>
+
+			<div class="ja-row ja-footer">
+				TEXT
+			</div>
+		</div>
+		
+	</div>
+
+*****************************/
+
+.#{$prefixe}-prev-product-container
+{
+	@extend %width-100;
+	//@extend %height-100;
+	@extend %display-flex;
+	@extend %pb-5;
+	@extend %line-height-2;
+	
+	@include fontSize(12px);
+
+	@include flexCss(flex-direction , column);
+	@include flexCss(justify-content , space-between);
+	@include flexCss(align-items , space-between);
+
+	& * 
+	{
+		text-decoration : none;
+	}
+	
+	.#{$prefixe}-thumbnail
+	{
+		@extend %thumbnail;
+	}
+
+	.#{$prefixe}-header
+	{
+		@extend %mb-2;
+		@extend %txt-upper;
+		@extend %txt-1;
+		@extend %color-black;
+		min-height: 40px;
+
+		&.high
+		{
+			min-height: 100px;
+		}
+	}
+
+	.#{$prefixe}-content
+	{
+		@extend %display-flex;
+
+		@extend %border-top-1;
+		@extend %border-left-0;
+		@extend %border-right-0;
+		@extend %border-bottom-0;
+		@extend %border-grey;
+		@extend %border-solid;
+
+		@extend %color-grey;
+		@extend %txt-capitalize;
+		@extend %opacity-60;
+		
+		@extend %pt-1;
+		@extend %pb-5;
+		
+		@extend %txt-1;
+		
+		@include flexCss(flex-direction , row);
+		@include flexCss(justify-content, space-between);
+
+		min-height : 150px;
+
+		&>*
+		{
+			margin-bottom : 5px;
+		}
+	}
+
+	.#{$prefixe}-footer
+	{
+		@extend %pos-absolute;
+		@extend %pos-bottom-0;
+	}
+}

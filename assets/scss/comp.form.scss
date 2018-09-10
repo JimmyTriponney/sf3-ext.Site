@@ -1,0 +1,139 @@
+/************************
+
+	<form action="#" class="ja-form" method="post">
+		<div class="ja-input-group">
+			<label class="ja-label">
+				<input type="text" name="corporate" required placeholder="Société" class="ja-input required" />
+			</label>
+		</div>
+		<div class="ja-input-group">
+			<label class="ja-label">
+				<input type="submit" class="ja-submit-red" name="send" value="VALIDER"/>
+			</label>
+		</div>
+	</form>
+
+************************/
+
+%button-form
+{
+	@extend %color-white;
+	@extend %txt-1;
+	@extend %pr-4;
+	@extend %pl-4;
+	@extend %pt-1;
+	@extend %pb-1;
+	@extend %txt-center;
+	@extend %border-radius-1;
+	@extend %border-0;
+	@extend %pos-relative;
+	
+	@include cursor(pointer);
+	@include transition(border background);
+
+	outline : none;
+}
+
+
+/* Form */
+.#{$prefixe}-form
+{
+	@extend %txt-1;
+
+	.asterisk
+	{
+		@extend %display-block;
+		@extend %pos-absolute;
+		@extend %pos-left-0;
+		@extend %pos-top-0;
+		@extend %color-red;
+
+		@include transition(color);
+	}
+
+	.#{$prefixe}-input-group
+	{	
+		@extend %mt-2;
+		@extend %pl-2;
+		@extend %pr-2;
+		@extend %pos-relative;
+
+		.#{$prefixe}-label
+		{
+			@extend %txt-bold;
+			@extend %width-100;
+		}
+
+		.#{$prefixe}-input
+		{
+			@extend %display-block;
+			@extend %width-100;
+			@extend %border-top-0;
+			@extend %border-left-0;
+			@extend %border-right-0;
+			@extend %border-bottom-1;
+			@extend %border-bottom-solid;
+			@extend %border-bottom-grey;
+			@extend %pl-2;
+
+			@include transition(border);
+
+			outline : none;
+
+			&:valid
+			{
+				& + .asterisk
+				{
+					@extend %color-green;
+				}
+
+				&:focus
+				{
+					@extend %border-bottom-green;					
+				}		
+			}
+
+			&:invalid
+			{
+				&:focus
+				{	
+					@extend %border-bottom-red;
+				}
+			}
+
+			&:focus:not(:required)
+			{
+				@extend %border-bottom-blue;
+			}
+		}
+
+		.#{$prefixe}-submit
+		{
+			@extend %button-form;
+		}
+
+		@each $lev, $val in $colors
+		{
+			@if $lev != transparent
+			{
+				.#{$prefixe}-submit-#{$lev}
+				{
+					@extend %button-form;
+					@extend %bg-#{$lev}-80;
+
+					&:hover
+					{
+						@extend %bg-#{$lev};
+					}
+
+					&:active
+					{
+						@extend %bg-#{$lev}-50;
+					}
+				}
+			}
+		}
+
+	}
+}
+

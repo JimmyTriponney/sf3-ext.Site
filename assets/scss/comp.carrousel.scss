@@ -1,0 +1,288 @@
+/* Carrousel */
+%carrouselHeight
+{
+	height : 300px;
+}
+
+@each $name, $break in $carrouselH
+{
+	@media all and (min-width: $break)
+	{
+		%carrouselHeight
+		{
+			height : $break;
+		}
+	}
+}
+
+/* Fullscreen */
+.carrousel-full-bg
+{
+	/* @extend %p-0; */
+	@extend %m-0;
+	@extend %width-100;
+	@extend %pos-fixed;
+	@extend %pos-top-0;
+	@extend %pos-left-0;
+	@extend %bg-black-80;
+	@extend %z-5;
+	@extend %display-none;
+
+	@include flexCss(align-items, center);
+	@include flexCss(justify-content, center);
+
+	min-height : 100%;
+
+	.carrousel-close
+	{
+		@extend %pos-top-30;
+		@extend %pos-right-30;
+		@extend %txt-3;
+
+		@extend .#{$prefixe}-close;
+	}
+}
+
+.#{$prefixe}-carrousel-container
+{
+	
+	@extend %overflow-hidden;
+	@extend %pos-relative;
+	@extend %border-bottom-1;
+	@extend %border-bottom-solid;
+	@extend %border-bottom-grey;
+
+	.#{$prefixe}-carrousel-media
+	{
+		@extend %height-100;
+	}
+
+	.#{$prefixe}-carrousel-source
+	{
+		@extend %width-100;
+		@extend %carrouselHeight;
+
+		@include margin(bottom, 100px);
+
+		img
+		{
+			@extend %border-0;
+		}
+	}
+
+	& > .carrousel-nav-left,
+	& > .carrousel-nav-right
+	{
+		@extend %carrouselHeight;
+		@extend %display-flex;
+		@extend %pos-absolute;
+		@extend %pos-top-0;
+		@extend %height-100;
+		@extend %width-50;
+		@extend %color-white;
+		@extend %txt-5;
+		@extend %txt-light;
+		@extend %z-3;
+
+		@include flexCss(align-items, center);
+		@include transform(scale(1,3));
+
+		@include buttonText();
+
+		&[class$=left]
+		{
+			@extend %pos-left-0;
+			@extend %pl-4;
+
+			&:hover
+			{
+				@include gradient(rgba(0,0,0,0.1) , transparent, 90deg);
+				@include transition(background);
+			}
+		}
+		&[class$=right]
+		{
+			@extend %pos-right-0;
+			@extend %pr-4;
+			@extend %display-flex;
+
+			@include flexCss(justify-content, flex-end);
+
+			&:hover
+			{
+				@include gradient(rgba(0,0,0,0.1) , transparent, -90deg);
+				@include transition(background);
+			}
+		}
+	}
+
+	& > .carrousel-fullscreen
+	{
+		@extend %pos-absolute;
+		@extend %pos-top-10;
+		@extend %pos-right-10;
+		@extend %color-white;
+		@extend %bg-black-50;
+		@extend %z-3;
+		@extend %txt-4;
+		@extend %display-flex;
+		@extend %overflow-hidden;
+
+		@include cursor(pointer);
+		@include width(50px);
+		@include height(50px);
+
+		@include flexCss(justify-content, center);
+		@include flexCss(align-items, center);
+
+		@include transform(scale(1));
+
+		
+		& > *
+		{
+			@include transition(transform, 1s);
+		}
+		&:hover > *
+		{
+			@include transform(scale(1.7));
+		}
+	}
+
+	.carrousel-media-container
+	{
+		@extend %width-100;
+		@extend %pos-absolute;
+		@extend %pos-top-0;
+		@extend %display-flex;
+		@extend %overflow-hidden;
+		@extend %carrouselHeight;
+
+		//@include height($carrouselHeight);
+		@include posCoord(left, 100%);
+		@include flexCss(justify-content, center);
+		@include flexCss(align-items, center);
+
+		&:first-child
+		{
+			@extend %pos-left-0;
+			@extend %z-3;
+		}
+
+		&:last-child
+		{
+			@include posCoord(left, -100%);
+			@extend %z-3;
+		}
+	}
+
+	.carrousel-nav-container
+	{
+		@extend %width-100;
+		@extend %pos-absolute;
+		@extend %pos-bottom-0;
+		@extend %overflow-hidden;
+		@extend %z-3;
+
+		@include height(100px);
+
+		.carrousel-nav-left,
+		.carrousel-nav-right
+		{
+			@extend %pos-absolute;
+			@extend %height-100;
+			@extend %bg-black-50;
+			@extend %color-white;
+			@extend %txt-bold;
+			@extend %txt-2;
+			@extend %display-flex;
+			@extend %txt-light;
+			@extend %z-3;
+
+			@include transform(scale(1,3));
+			@include flexCss(align-items, center);
+			@include flexCss(justify-content, center);
+			@include buttonText();
+			@include width(5%);
+			
+			&[class$=left]
+			{
+				@extend %pos-left-0;
+			}
+
+			&[class$=right]
+			{
+				@extend %pos-right-0;
+			}
+		}
+
+		.carrousel-nav-bloc
+		{
+			@extend %display-flex;
+			@extend %pos-absolute;
+			@extend %height-100;
+		
+			.carrousel-nav-item
+			{
+				@extend %height-100;
+				@extend %border-5;
+				@extend %border-white;
+				@extend %border-solid;
+				@extend %pos-relative;
+
+				@include width(auto);
+				@include cursor(pointer);
+
+				@include transition(box-shadow transform);
+
+				&:first-child
+				{
+					@extend %border-left-0;
+				}
+				&:last-child
+				{
+					@extend %border-right-0;
+				}
+				
+				img
+				{
+					@extend %height-100;
+				}
+
+				&:hover
+				{
+					@extend %z-2;
+
+					@include boxShadow(black, 0.5);
+					@include transform(scale(1.1,1.1));
+
+					&::after
+					{
+						content : '<';
+
+						@extend %bg-black-50;
+						@extend %color-white;
+						@extend %pos-absolute;
+						@extend %height-70;
+						@extend %width-70;
+						@extend %display-flex;
+						
+						@include posCoord(left, 15%);
+						@include posCoord(top, 15%);
+						@include flexCss(justify-content, center);
+						@include flexCss(align-items, center);
+						@include borderRadius('','',100%);
+						@include transform(rotate(90deg));
+
+						@include transition(width);
+					}
+				}
+
+				&:active
+				{
+					@include boxShadow(black, 0);
+					@include transform(scale(1,1));
+				}
+			}
+		}
+	}
+}

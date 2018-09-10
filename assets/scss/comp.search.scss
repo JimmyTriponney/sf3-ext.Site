@@ -1,0 +1,269 @@
+/*
+
+    search filters style
+
+    Example :
+        <section class="ja-col">
+            <div class="ja-search-widget">
+                
+                <div class="ja-row">
+                    <div class="ja-col">
+                        <div class="ja-search-widget-active-filter">
+                            {# Activating filters #}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="ja-row">
+                    <div class="ja-col">
+                        <ul class="ja-search-widget-items">
+
+                            <li class="ja-search-widget-filter">
+                                <span class="ja-search-widget-title">Silhouette</span>
+                            </li>
+
+                        </ul>
+                    </div>  
+                </div>
+                
+            </div>
+        </section>
+
+*/
+
+.#{$prefixe}-search-widget
+{
+    .#{$prefixe}-filter-show{
+        @extend %txt-center;
+        @extend %bg-grey;
+        @extend %border-radius-1;
+        /*@extend %m-1;*/
+        @include cursor(pointer);
+        @include transition(background-color);
+        @include transition(color);
+
+
+        @extend %display-block;
+        @extend %pt-3;
+        @extend %pb-3;
+
+        &:hover
+        {
+            @extend %bg-black;
+        }
+
+        &:active
+        {
+            @extend %bg-black-50;
+        }
+    }
+    /*
+    @extend %border-red;
+    @extend %border-1;
+    @extend %border-solid;
+    @extend %border-radius-1;
+    */
+
+    .#{$prefixe}-search-widget-items
+    {
+        @extend %p-0;
+        /*@extend %m-0;*/
+        @extend %pos-relative;
+        @extend %display-flex;
+        @extend %txt-bold;
+        //@extend %color-black;
+        @extend %color-white;
+
+        @include listStyle(none);
+        @include flexCss(justify-content, center);
+
+        &.plus{
+            @extend %display-none;
+        }
+
+        .#{$prefixe}-search-widget-filter
+        {
+            @extend %p-1;
+            
+
+            &>span
+            {
+                @extend %txt-center;
+                @extend %bg-grey;
+                @extend %border-radius-1;
+                /*@extend %m-1;*/
+                @include cursor(pointer);
+                @include transition(background-color);
+                @include transition(color);
+
+
+                @extend %display-block;
+                @extend %pt-3;
+                @extend %pb-3;
+
+                &:hover
+                {
+                    @extend %bg-black;
+                }
+    
+                &:active
+                {
+                    @extend %bg-black-50;
+                }
+            }
+
+
+            .#{$prefixe}-search-widget-input
+            {
+                @extend %width-80;
+            }
+
+            .#{$prefixe}-search-widget-panel
+            {
+                @extend %pos-relative;
+                @extend %p-2;
+
+                .#{$prefixe}-search-widget-panel-range
+                {
+                    @extend %border-1;
+                    @extend %border-grey;
+                    @extend %border-solid;
+                    @extend %width-100;
+                    @extend %pos-relative;
+
+                    @include height(5px);
+
+                    .#{$prefixe}-search-widget-panel-range-active
+                    {
+                        @extend %width-100;
+                        @extend %height-100;
+                        @extend %bg-red;
+                    }
+
+                    .#{$prefixe}-search-widget-panel-disc
+                    {
+                        @extend %border-1;
+                        @extend %border-grey;
+                        @extend %border-solid;
+                        @extend %border-radius-5;
+                        @extend %pos-absolute;
+                        @extend %bg-white;
+
+                        @include posCoord(top, -3px);
+                        @include width(10px);
+                        @include height(10px);
+
+                        &.min
+                        {
+                            @include posCoord(left, -5px);
+                        }
+
+                        &.max
+                        {
+                            @include posCoord(right, -5px);
+                        }
+                    }
+                }
+            }
+
+        }
+
+        .#{$prefixe}-search-widget-filter-plus
+        {
+            @extend %p-1;
+            @extend %txt-center;
+            @extend %color-black;
+            
+            @include cursor(pointer);
+            @include transition(background-color);
+            @include transition(color);
+
+            & span
+            {
+                @extend %display-block;
+                @extend %pt-1;
+                @extend %pb-1;
+                @extend %pl-2;
+                @extend %pr-2;
+            }
+        }
+    }
+}
+
+.range-progress{
+    @extend %bg-blue;
+}
+
+.range-btn{
+    @extend %bg-grey;
+}
+
+.ja-search-widget-value-actif{
+    .actif-filter{
+        @extend %p-1;
+        @extend %border-1;
+        @extend %border-grey;
+        @extend %border-solid;
+        @extend %border-radius-1;
+    }
+}
+
+.search-widget-panel
+{
+
+    .search-widget-panel-filter{
+
+        @extend %display-flex;
+        @extend %bg-white;
+        @extend %pt-1;
+        @extend %pb-1;
+        @extend %pr-3;
+        @extend %pl-3;
+        
+        @include cursor(pointer);
+        @include flexCss(align-items, center);
+        @include transition(background);
+
+        &:hover{
+            @extend %bg-grey-50;
+            @extend %color-white;
+        }
+
+        .search-widget-checkbox{
+            @extend %pos-relative;
+            @extend %border-1;
+            @extend %border-grey;
+            @extend %border-solid;
+            @extend %border-radius-1;
+            @extend %display-inline-block;
+            @extend %p-2;
+
+            @include width(20px);
+            @include height(20px);
+
+            &.selected::after{
+                content : '';
+                display: block;
+                width : 10px;
+                height : 15px;
+                transform: rotate(45deg);
+                border-bottom : 3px grey solid;
+                border-right : 4px grey solid;
+                border-radius : 2px;
+                position : absolute;
+                top: 0;
+                left: 20%;
+            }
+
+            & + .search-widget-label{
+                @extend %txt-1;
+                @extend %color-grey;
+                @extend %txt-bold;
+                @extend %display-inline-block;
+                @extend %pl-2;
+            }
+        }
+
+    }
+
+}

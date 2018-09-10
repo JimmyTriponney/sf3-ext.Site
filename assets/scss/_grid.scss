@@ -1,0 +1,96 @@
+/* Container */
+.#{$prefixe}-container {
+    width: 100%;
+    //padding-right: 15px;
+    //padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+	@extend %overflow-hidden;
+}
+
+/* Container-fluid */
+.#{$prefixe}-container-fluid {
+    
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 0;
+	@extend %overflow-hidden;
+}
+
+
+/* Row */
+.#{$prefixe}-row
+{
+	flex-wrap : wrap;
+	@include width(100%);
+	//@include margin(left,-15px);
+	//@include margin(right,-15px);
+	@include display(flex);
+	@extend %pos-relative;
+}
+
+/* Column */
+%col { @include autoCol(); }
+.#{$prefixe}-col { @extend %col; }
+
+@for $i from 1 through $nbColumn
+{	
+	%order-#{$i}{ @include order($i); }
+
+	%col-#{$i}
+	{
+		@include width(percentage($i/$nbColumn));
+		@include padding(left,15px);
+		@include padding(right,15px);
+		@extend %pos-relative;
+	}
+
+	%col-pull-#{$i}{ @include posCoord(right, percentage($i/$nbColumn)); }
+	%col-push-#{$i}{ @include margin(left, percentage($i/$nbColumn)); }
+
+	.#{$prefixe}-order-#{$i}{ @extend %order-#{$i}; }
+	.#{$prefixe}-col-#{$i}{ @extend %col-#{$i}; }
+	.#{$prefixe}-col-pull-#{$i}{ @extend %col-pull-#{$i}; }
+	.#{$prefixe}-col-push-#{$i}{ @extend %col-push-#{$i}; }
+}
+
+@each $name, $break in $breakpoint
+{
+	@media all and (min-width: $break)
+	{
+		.#{$prefixe}-container {
+		    max-width:  ($break*0.98);
+		}
+
+		.#{$prefixe}-col-#{$name}
+		{
+			@include autoCol();
+		}
+
+		@for $i from 1 through $nbColumn
+		{
+			%order-#{$name}-#{$i}
+			{
+				@include order($i);
+			}
+
+			%col-#{$name}-#{$i}
+			{
+				width : percentage($i/$nbColumn); 
+				@include padding(left,15px);
+				@include padding(right,15px);
+				@extend %pos-#{$name}-relative;
+			}
+			%col-#{$name}-pull-#{$i}{ @include posCoord(right, percentage($i/$nbColumn)); }
+			%col-#{$name}-push-#{$i}{ @include margin(left, percentage($i/$nbColumn)); }
+
+			.#{$prefixe}-order-#{$name}-#{$i}{ @extend %order-#{$name}-#{$i}; }
+			.#{$prefixe}-col-#{$name}-#{$i}{ @extend %col-#{$name}-#{$i}; }
+			.#{$prefixe}-col-#{$name}-pull-#{$i}{ @extend %col-#{$name}-pull-#{$i}; }
+			.#{$prefixe}-col-#{$name}-push-#{$i}{ @extend %col-#{$name}-push-#{$i}; }
+		}
+	}
+}	

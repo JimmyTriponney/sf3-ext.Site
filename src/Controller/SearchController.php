@@ -31,6 +31,14 @@ class SearchController extends Controller
         $this->wafy = new JAWafy();
     }
 
+    
+    private function debug($data,$title){
+        if(isset($title))echo'<h1>'.$title.'</h1>';
+        echo '<pre>';
+        print_r($data);
+        echo '</pre>';
+    }
+
     /**
      * @Route("/infosbar/{type}", 
      *          name="InfosBar",
@@ -56,13 +64,17 @@ class SearchController extends Controller
      */
     public function searchBar(Request $request){
 
+        //Récupération de toute la ligne de GET
         $dataGet = $request->query->all();
+        //i_veh_destination = Destination (1 => Particular, 2 => Merchant, 3 => Alcopa (if available), 4 => Breakage) (UC only)
         $dataWafy = ['i_veh_destination' => 1];
         $Wafy = $this->wafy;//new JAWafy();
+        //Initialisation du tableau de retour
         $res = [ 'aVehicles' => [], 'nbResults' => 0, 'nbSearch' => 0, 'iRequest' => $dataGet];
 
-        
-		session_start();
+        //Activation de la session
+        session_start();
+        //Enregistrement en session des données de recherche
 		$_SESSION['search'] = $dataGet;
 
         //Ici les champs à mettre dans l'appel API en recherche
@@ -87,20 +99,19 @@ class SearchController extends Controller
         
         //Vérification de l'existance des champs en réception et ajout des valeurs à l'appel API
         foreach( $valueForCheck as $name => $trad){
-            if( isset($dataGet[$name]) && !empty($dataGet[$name]) ){
+            if( isset($dataGet[$name]) && $dataGet[$name] !== "" ){
                 $dataWafy[$trad] = $dataGet[$name];
                 unset( $dataGet[$name] );
             }
         }
-        $this->debug( $dataGet );
-        $this->debug( $dataWafy );
+
         //Récupération des véhicule correspondant à la première série de filtres
         $allVehicles = $Wafy->allVehiclesForSearch($dataWafy);
 
         //Filtrage des valeurs
         //Itération par véhicule reçu
         foreach( $allVehicles['results'] as $idVh => $infosVh ){
-            $isValidFilter = count($dataGet) ? false : true;
+            $isValidFilter = count($dataGet) ? false : true;    
             $isWithImg = true;
 
             if(\preg_match('/id=9fa31f2b874d78fb76d70074c960e47f7e4927dcb716de3747c9f57cf2516a8ebe6ff7695cffaada4ed3adc16a0ddfaa_2$/', $infosVh['aCVehiculeImageDTO']['s_vim_nom']))
@@ -118,14 +129,9 @@ class SearchController extends Controller
                 
                 $isValidFilter = false;
                 $translateName = $this->translateName($nameFilter);
-                $expValue = explode(',', $valueFilter );
-
-                if( count($expValue) > 1 ){
-                    $isValidFilter = $this->checkFilter( $infosVh, $translateName, $expValue );//Vérifie que ce véhicule correspond au filtre en cours d'écoute
-                }
-                else{
-                    $isValidFilter = $this->checkFilter( $infosVh, $translateName, $valueFilter );//Vérifie que ce véhicule correspond au filtre en cours d'écoute
-                }
+                $expValue = explode(',', $valueFilter);
+                $isValidFilter = $this->checkFilter( $infosVh, $translateName, $expValue );//Vérifie que ce véhicule correspond au filtre en cours d'écoute
+                
                 
                 //Si le véhicule ne correspond pas à la valeur du filtre alors je ne regarde pas plus loin je passe au suivant
                 if(!$isValidFilter) break;
@@ -145,11 +151,14 @@ class SearchController extends Controller
     }
 
     private function checkFilter( $arraySearch, $field, $value ){
+
         $wafy = $this->wafy;
 
-        if( count($value) < 1 ) return true;
-        if( $value == "" ) return true;
+        //Je fais en sorte que $value soit toujours un tableau pour éviter les erreurs avec count()
+        $arrValue = gettype($value) === 'string' ? [$value] : $value;
 
+        if( $value == "" || count($arrValue) < 1 ) return true;
+        
         if( gettype($value) === 'array' ){
             foreach( $value as $v ){
                 $res = $this->checkFilter( $arraySearch, $field, $v );
@@ -164,7 +173,6 @@ class SearchController extends Controller
             if( $field === $this->translateName('brand') ){
                 $value = $wafy->allStockDetails('vo')['brand'][$value];// $wafy->allStockDetails('vo')['brand'][$value];
             }
-            
             
             if( $field === $this->translateName('energy')
                     && \preg_match( '#'.$value.'#i', trim(strtolower($arraySearch[$field])))
@@ -229,9 +237,4 @@ class SearchController extends Controller
         }
     }
 
-    private function debug($data){
-        echo '<pre>';
-        print_r($data);
-        echo '</pre>';
-    }
 }

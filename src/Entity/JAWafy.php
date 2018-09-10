@@ -160,7 +160,7 @@ class JAWafy
         if($this->resAllStockDetails !== null && $this->lastTypeAllStockDetails === $type){
             return $this->resAllStockDetails;
         }
-        
+
         /* New function */
         $body       = [];
         $brandModel = [];
@@ -174,9 +174,17 @@ class JAWafy
 
         $url = 'https://ws4you.webapp4you.eu/application/s-34/get-publication-filtres-vehicules';
         $data = $this->authentification;
-        $filters = $this->jsonCURL($url,$data);
 
-        //$this->debug( $filters );
+        //J'ajoute le type de véhicule recherché pour n'avoir que les recherche possible dans ce stock        
+        if(strtolower($type) === 'vn')
+            $data['i_veh_typeconfiguration'] = 0;
+        elseif(strtolower($type) === 'vd')
+            $data['i_veh_typeconfiguration'] = 2;
+        else
+            $data['i_veh_typeconfiguration'] = 1;
+
+        //Récupération des données de la bar de recherche
+        $filters = $this->jsonCURL($url,$data);
 
         foreach($filters as $value){
             //Recover brand

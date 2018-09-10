@@ -1,0 +1,41 @@
+/* Background */
+@each $name,$color in $colors
+{
+	%bg-#{$name}{ @include background($color); }
+
+	@each $a in $alpha
+	{
+		@if $name != transparent
+		{
+			%bg-#{$name}-#{$a}{ @include background(rgba( red($color), green($color), blue($color), ($a/100))); }
+
+			.#{$prefixe}-bg-#{$name}-#{$a}{ @extend %bg-#{$name}-#{$a}; }
+		}
+	}
+
+	.#{$prefixe}-bg-#{$name}{ @extend %bg-#{$name}; }
+}
+
+/* Break */
+@each $nameB, $break in $breakpoint
+{
+	@media all and (min-width: $break)
+	{
+		@each $name,$color in $colors
+		{
+			%bg-#{$nameB}-#{$name}{ @include background($color); }
+
+			@each $a in $alpha
+			{
+				@if $name != transparent
+				{
+					%bg-#{$nameB}-#{$name}-#{$a}{ @include background(rgba( red($color), green($color), blue($color), ($a/100))); }
+
+					.#{$prefixe}-bg-#{$nameB}-#{$name}-#{$a}{ @extend %bg-#{$nameB}-#{$name}-#{$a}; }
+				}
+			}
+
+			.#{$prefixe}-bg-#{$nameB}-#{$name}{ @extend %bg-#{$nameB}-#{$name}; }
+		}
+	}
+}

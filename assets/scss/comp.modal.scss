@@ -1,0 +1,103 @@
+/**********************************
+
+	<div class="ja-modal [active]" id="panl-essai">
+		<div class="ja-modal-container">
+			<div class="ja-container-fluid">
+
+				<div class="ja-row">
+					<div class="ja-col-12 ja-txt-right ja-pt-1">
+						<i class="fas fa-times ja-close"></i>
+					</div>
+				</div>
+
+				<div class="head">
+				</div>
+
+				<div class="body">
+				</div>
+
+				<div class="ja-row">
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+**********************************/
+
+
+%base-modal-container
+{
+	@extend %m-5;
+	@extend %bg-white;
+	@extend %pos-absolute;
+	@extend %border-radius-1;
+
+	@include boxShadow(black, 0.5);
+
+	min-height : 200px;
+}
+
+*[modal]
+{
+	@include cursor(pointer);
+}
+
+.#{$prefixe}-modal
+{
+	@extend %p-0;
+	@extend %m-0;
+	@extend %overflow-scroll;
+	@extend %width-100;
+	@extend %pos-fixed;
+	@extend %pos-top-0;
+	@extend %pos-left-0;
+	@extend %bg-black-80;
+	@extend %z-5;
+	@extend %display-none;
+
+	@include flexCss(align-items, center);
+	@include flexCss(justify-content, center);
+
+	min-height : 100%;
+
+	&.active
+	{
+		@extend %display-flex;
+	}
+
+	.#{$prefixe}-modal-container
+	{
+		@extend %base-modal-container;
+		@extend %width-50;
+	}
+
+	.#{$prefixe}-modal-container-lg
+	{
+		@extend %base-modal-container;
+		@extend %width-80;
+	}
+
+	.#{$prefixe}-modal-container,
+	.#{$prefixe}-modal-container-lg
+	{
+		@extend %pos-top-30;
+
+		.close{ @extend .#{$prefixe}-close; }
+
+		.head
+		{
+			@extend %p-2;
+			@extend %txt-bold;
+			@extend %border-bottom-1;
+			@extend %border-bottom-solid;
+			@extend %border-bottom-grey;
+		}
+
+		.body
+		{
+			@extend %p-2;
+		}
+	}
+	
+}

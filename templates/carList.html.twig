@@ -3,6 +3,7 @@
 {% block title 'Liste des véhicules' %}
 
 {% block javascripts %}
+	<script src="{{ asset('build/js/comp.pagination.js') }}" type="text/javascript" rel="javascript"></script>
 	<script src="{{ asset('build/js/comp.searchBar.js') }}" type="text/javascript" rel="javascript"></script>
 {% endblock %}
 
@@ -19,13 +20,6 @@
 		{% for vehicle in listVh %}
 			{{ include('includes/'~typeCard~'.html.twig',{'vehicle':vehicle}) }}
 		{% endfor %}
-	</div>
-
-	<div class="row">
-		<div class="col-12">
-			{# include('includes/pagination.html.twig',{"totalRes" : nbVh}) #}
-		</div>
-	</div>
-	
+	</div>	
 	
 {% endblock %}

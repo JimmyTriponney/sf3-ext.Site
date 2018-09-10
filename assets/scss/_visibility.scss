@@ -1,0 +1,52 @@
+/* Visibility */
+@each $visi in $visibility
+{
+	%visibility-#{$visi}{ @include visibility($visi); }
+
+	.#{$prefixe}-visibility-#{$visi}{ @extend %visibility-#{$visi}; }
+}
+
+/* Display */
+@each $disp in $display
+{
+	%display-#{$disp}{ @include display($disp); }
+
+	.#{$prefixe}-d-#{$disp}{ @extend %display-#{$disp}; }
+}
+
+/* Opacity */
+@each $a in $alpha
+{
+	%opacity-#{$a}{ @include opacity($a/100); }
+
+	.#{$prefixe}-opacity-#{$a}{ @extend %opacity-#{$a}; }
+}
+
+/* break */
+@each $name, $break in $breakpoint
+{
+	@media all and (min-width: $break)
+	{
+		@each $disp in $display
+		{
+			%display-#{$name}-#{$disp}{ @include display($disp); }
+
+			.#{$prefixe}-d-#{$name}-#{$disp}{ @extend %display-#{$name}-#{$disp}; }
+		}
+
+		@each $visi in $visibility
+		{
+			%visibility-#{$name}-#{$visi}{ @include visibility($visi); }
+
+			.#{$prefixe}-visibility-#{$name}-#{$visi}{ @extend %visibility-#{$name}-#{$visi}; }
+		}
+		
+		/* Opacity */
+		@each $a in $alpha
+		{
+			%opacity-#{$name}-#{$a}{ @include opacity($a/100); }
+
+			.#{$prefixe}-opacity-#{$name}-#{$a}{ @extend %opacity-#{$name}-#{$a}; }
+		}
+	}
+}	

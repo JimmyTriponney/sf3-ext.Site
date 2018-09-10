@@ -1,0 +1,138 @@
+/* Tab */
+
+/**************************
+	Example :
+
+	<div class="ja-tab-container">
+		<ul class="ja-tab-nav">
+			<li class="ja-tab-item active" data-target="fiche technique">TEXT</li>
+			<li class="ja-tab-item" data-target="equipements">TEXT</li>
+			<li class="ja-tab-item" data-target="informations">TEXT</li>
+		</ul>
+		<div class="ja-tab-content">
+			<div class="ja-tab-panel active" data-target="fiche technique">TEXT</div>
+			<div class="ja-tab-panel" data-target="equipements">TEXT</div>
+			<div class="ja-tab-panel" data-target="informations">TEXT</div>
+		</div>
+	</div>
+
+**************************/
+
+.#{$prefixe}-tab-container
+{
+	@extend %width-100;
+
+	/* Nav of tab */
+	.#{$prefixe}-tab-nav
+	{
+		@extend %display-flex;
+		@extend %width-100;
+		@extend %border-bottom-1;
+		@extend %border-bottom-grey;
+		@extend %border-bottom-solid;
+		@extend %p-0;
+
+		.#{$prefixe}-tab-item
+		{
+			@extend %display-inline-block;
+			@extend %bg-transparent;
+			@extend %p-2;
+			@extend %m-0;
+			@extend %txt-1;
+			@extend %color-grey;
+			@extend %pos-relative;
+			@extend %z-0;
+			@extend %border-top-left-radius-1;
+			@extend %border-top-right-radius-1;
+			@extend %border-grey;
+			@extend %border-0;
+			@extend %border-solid;
+			@extend %border-bottom-0;
+			@extend %z-0;
+
+			top : 1px;
+
+			@include cursor(pointer);
+			@include transition(opacity border color top background);
+
+			&.active
+			{
+				@extend %bg-white;
+				@extend %color-red;
+				@extend %border-1;
+				@extend %z-1;
+				
+				@include transition(opacity border color background);
+			}
+
+			&:hover:not(.active)
+			{
+				@extend %color-red;
+				@extend %opacity-50;
+				@extend %border-1;
+
+				@include transition(opacity border color background);
+			}
+
+			&:active:not(.active)
+			{
+				@extend %bg-white;
+				@extend %color-red;
+				@extend %opacity-100;
+				@extend %border-1;
+				@extend %z-1;
+
+				@include transition(opacity border color background);
+			}
+			
+		}
+	}
+
+	/* Content of collapse */
+	.#{$prefixe}-tab-content
+	{
+		@extend %width-100;
+		@extend %p-0;
+		
+		.#{$prefixe}-tab-panel
+		{
+			@extend %display-none;
+
+			&.active
+			{
+				@extend %display-block;
+			}
+		}
+	}
+
+	.#{$prefixe}-nav-dark
+	{
+		@extend %bg-grey;
+
+		.#{$prefixe}-tab-item
+		{
+			@extend %p-3;
+			@extend %color-blue;
+
+			@include transition(background);
+
+			&:not(.active)
+			{
+				@include cursor(pointer);
+
+				&:hover
+				{
+					@extend %bg-white;
+				}
+			}
+
+			&.active
+			{
+				@extend %bg-white;
+				@extend %color-black;
+			}
+		}
+	}
+
+}
+

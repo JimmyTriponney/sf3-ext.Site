@@ -1,0 +1,22 @@
+/* Z-index */
+@each $lev, $z in $zIndex
+{
+	%z-#{$lev}{ @include zIndex($z); }
+
+	.#{$prefixe}-z-#{$lev}{ @extend %z-#{$lev}; }
+}
+
+/* break */
+@each $name, $break in $breakpoint
+{
+	@media all and (min-width: $break)
+	{
+		/* Z-index */
+		@each $lev, $z in $zIndex
+		{
+			%z-#{$name}-#{$lev}{ @include zIndex($z); }
+
+			.#{$prefixe}-z-#{$name}-#{$lev}{ @extend %z-#{$name}-#{$lev}; }
+		}
+	}
+}

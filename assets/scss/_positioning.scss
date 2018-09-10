@@ -1,0 +1,57 @@
+/* Position */
+@each $position in $positions
+{
+	%pos-#{$position}{ @include position($position); }
+
+	.#{$prefixe}-pos-#{$position}{ @extend %pos-#{$position}; }
+}
+
+/* Size positioning */
+/* Px */
+@each $lev, $val in $sizeTenToTen
+{
+	%pos-top-#{$lev}{ @include posCoord(top, $val); }
+	%pos-left-#{$lev}{ @include posCoord(left, $val); }
+	%pos-bottom-#{$lev}{ @include posCoord(bottom, $val); }
+	%pos-right-#{$lev}{ @include posCoord(right, $val); }
+
+	.#{$prefixe}-pos-top-#{$lev}{ @extend %pos-top-#{$lev}; }
+	.#{$prefixe}-pos-left-#{$lev}{ @extend %pos-left-#{$lev}; }
+	.#{$prefixe}-pos-bottom-#{$lev}{ @extend %pos-bottom-#{$lev}; }
+	.#{$prefixe}-pos-right-#{$lev}{ @extend %pos-right-#{$lev}; }
+}
+
+/* Float */
+@each $lev, $val in $float
+{
+	%float-#{$lev}{ @include float($val); }
+
+	.#{$prefixe}-float-#{$lev}{ @extend %float-#{$lev}; }
+}
+
+/* Break */
+@each $name, $break in $breakpoint
+{
+	@media all and (min-width: $break)
+	{
+		@each $position in $positions
+		{
+			%pos-#{$name}-#{$position}{ @include position($position); }
+
+			.#{$prefixe}-pos-#{$position}{ @extend %pos-#{$name}-#{$position}; }
+		}
+
+		@each $lev, $val in $sizeTenToTen
+		{
+			%pos-top-#{$name}-#{$lev}{ @include posCoord(top, $val);  }
+			%pos-left-#{$name}-#{$lev}{ @include posCoord(left, $val);  }
+			%pos-bottom-#{$name}-#{$lev}{ @include posCoord(bottom, $val);  }
+			%pos-right-#{$name}-#{$lev}{ @include posCoord(right, $val);  }
+
+			.#{$prefixe}-pos-top-#{$name}-#{$lev}{ @extend %pos-top-#{$name}-#{$lev}; }
+			.#{$prefixe}-pos-left-#{$name}-#{$lev}{ @extend %pos-left-#{$name}-#{$lev}; }
+			.#{$prefixe}-pos-bottom-#{$name}-#{$lev}{ @extend %pos-bottom-#{$name}-#{$lev}; }
+			.#{$prefixe}-pos-right-#{$name}-#{$lev}{ @extend %pos-right-#{$name}-#{$lev}; }
+		}
+	}
+}

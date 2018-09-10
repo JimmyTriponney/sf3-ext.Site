@@ -1,0 +1,23 @@
+/* Overflow */
+@each $lev, $val in $overflow
+{
+	%overflow-#{$lev}{ @include overflow($val); }
+
+	.#{$prefixe}-overflow-#{$lev}{ @extend %overflow-#{$lev}; }
+}
+
+/* Break */
+/* Break */
+@each $name, $break in $breakpoint
+{
+	@media all and (min-width: $break)
+	{
+		/* Overflow */
+		@each $lev, $val in $overflow
+		{
+			%overflow-#{$name}-#{$lev}{ @include overflow($val); }
+
+			.#{$prefixe}-overflow-#{$name}-#{$lev}{ @extend %overflow-#{$name}-#{$lev}; }
+		}
+	}
+}

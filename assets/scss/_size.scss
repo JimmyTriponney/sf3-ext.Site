@@ -1,0 +1,27 @@
+/* width & height */
+@each $lev, $val in $sizePercent
+{
+	%width-#{$lev}{ @include width($val); }
+	%height-#{$lev}{ @include height($val); }
+
+	.#{$prefixe}-w-#{$lev}{ @extend %width-#{$lev}; }
+	.#{$prefixe}-h-#{$lev}{ @extend %height-#{$lev}; }
+	.#{$prefixe}-size-#{$lev}{ @extend %width-#{$lev}; @extend %height-#{$lev}; }
+}
+
+/* Break */
+@each $name, $break in $breakpoint
+{
+	@media all and (min-width: $break)
+	{
+		@each $lev, $val in $sizePercent
+		{
+			%width-#{$name}-#{$lev}{ @include width($val); }
+			%height-#{$name}-#{$lev}{ @include height($val); }
+
+			.#{$prefixe}-w-#{$name}-#{$lev}{ @extend %width-#{$name}-#{$lev}; }
+			.#{$prefixe}-h-#{$name}-#{$lev}{ @extend %height-#{$name}-#{$lev}; }
+			.#{$prefixe}-size-#{$name}-#{$lev}{ @extend %width-#{$name}-#{$lev}; @extend %height-#{$name}-#{$lev}; }
+		}
+	}
+}

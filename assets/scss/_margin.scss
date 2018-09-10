@@ -1,0 +1,63 @@
+/* Margin & Padding */
+@each $lev, $size in $sizeMargin
+{
+	%m-#{$lev}{ @include margin('', $size !important); }
+	%mt-#{$lev}{ @include margin(top, $size !important); }
+	%ml-#{$lev}{ @include margin(left, $size !important); }
+	%mb-#{$lev}{ @include margin(bottom, $size !important); }
+	%mr-#{$lev}{ @include margin(right, $size !important); }
+
+	%p-#{$lev}{ @include padding('', $size !important); }
+	%pt-#{$lev}{ @include padding(top, $size !important); }
+	%pl-#{$lev}{ @include padding(left, $size !important); }
+	%pb-#{$lev}{ @include padding(bottom, $size !important); }
+	%pr-#{$lev}{ @include padding(right, $size !important); }
+
+	.#{$prefixe}-m-#{$lev}{ @extend %m-#{$lev}; }
+	.#{$prefixe}-mt-#{$lev}{ @extend %mt-#{$lev}; }
+	.#{$prefixe}-ml-#{$lev}{ @extend %ml-#{$lev}; }
+	.#{$prefixe}-mb-#{$lev}{ @extend %mb-#{$lev}; }
+	.#{$prefixe}-mr-#{$lev}{ @extend %mr-#{$lev}; }
+
+	.#{$prefixe}-p-#{$lev}{ @extend %p-#{$lev}; }
+	.#{$prefixe}-pt-#{$lev}{ @extend %pt-#{$lev}; }
+	.#{$prefixe}-pl-#{$lev}{ @extend %pl-#{$lev}; }
+	.#{$prefixe}-pb-#{$lev}{ @extend %pb-#{$lev}; }
+	.#{$prefixe}-pr-#{$lev}{ @extend %pr-#{$lev}; }
+}
+
+/* Break */
+@each $name, $break in $breakpoint
+{
+	@media all and (min-width: $break)
+	{
+		/* Margin & Padding */
+		@each $lev, $size in $sizeMargin
+		{
+			%m-#{$name}-#{$lev}{ @include margin('', $size !important); }
+			%mt-#{$name}-#{$lev}{ @include margin(top, $size !important); }
+			%ml-#{$name}-#{$lev}{ @include margin(left, $size !important); }
+			%mb-#{$name}-#{$lev}{ @include margin(bottom, $size !important); }
+			%mr-#{$name}-#{$lev}{ @include margin(right, $size !important); }
+
+			%p-#{$name}-#{$lev}{ @include padding('', $size !important); }
+			%pt-#{$name}-#{$lev}{ @include padding(top, $size !important); }
+			%pl-#{$name}-#{$lev}{ @include padding(left, $size !important); }
+			%pb-#{$name}-#{$lev}{ @include padding(bottom, $size !important); }
+			%pr-#{$name}-#{$lev}{ @include padding(right, $size !important); }
+
+			.#{$prefixe}-m-#{$name}-#{$lev}{ @extend %m-#{$name}-#{$lev}; }
+			.#{$prefixe}-mt-#{$name}-#{$lev}{ @extend %mt-#{$name}-#{$lev}; }
+			.#{$prefixe}-ml-#{$name}-#{$lev}{ @extend %ml-#{$name}-#{$lev}; }
+			.#{$prefixe}-mb-#{$name}-#{$lev}{ @extend %mb-#{$name}-#{$lev}; }
+			.#{$prefixe}-mr-#{$name}-#{$lev}{ @extend %mr-#{$name}-#{$lev}; }
+
+			.#{$prefixe}-p-#{$name}-#{$lev}{ @extend %p-#{$name}-#{$lev}; }
+			.#{$prefixe}-pt-#{$name}-#{$lev}{ @extend %pt-#{$name}-#{$lev}; }
+			.#{$prefixe}-pl-#{$name}-#{$lev}{ @extend %pl-#{$name}-#{$lev}; }
+			.#{$prefixe}-pb-#{$name}-#{$lev}{ @extend %pb-#{$name}-#{$lev}; }
+			.#{$prefixe}-pr-#{$name}-#{$lev}{ @extend %pr-#{$name}-#{$lev}; }
+		}
+	}
+}
+

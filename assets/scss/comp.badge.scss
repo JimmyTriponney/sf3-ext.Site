@@ -1,0 +1,50 @@
+/* badge */
+
+/***************************
+	Example :
+
+	<div class="ja-price-container">
+		TEXT
+	</div>
+
+***************************/
+
+%badge-price
+{
+	@extend %width-100;
+	@extend %overflow-hidden;
+	
+	&>*
+	{	
+		@extend %pt-2;
+		@extend %pb-2;
+		@extend %txt-center;
+		@extend %pos-relative;
+		@extend %txt-bold;
+		@extend %bg-red;
+		@extend %color-white;
+		@extend %txt-2;
+		
+		padding : 10px 0;
+	}
+
+}
+
+.#{$prefixe}-price-container
+{
+	@extend %badge-price;
+	@include break-corner(right, -26px, top, 0, 40deg, 50px, 28px, #fff, after);
+}
+
+.#{$prefixe}-price-header
+{
+
+	@extend %badge-price;
+	@include break-corner(right, -26px, top, 0, 40deg, 50px, 28px, #121e24, after);
+}
+
+.#{$prefixe}-corner-1
+{
+	@extend %badge-price;
+	@include break-corner(right, -26px, top, 0, 40deg, 35px, 28px, #fff, after);
+}

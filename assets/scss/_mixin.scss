@@ -1,0 +1,291 @@
+/* Background & Color */
+@mixin background($val)
+{
+	background : $val;
+}
+@mixin color($val)
+{
+	color : $val;
+}
+
+/* Width & Height */
+@mixin width($val)
+{
+	width : $val;
+}
+@mixin height($val)
+{
+	height : $val;
+}
+
+/* Margin & Padding */
+@mixin margin($side, $size)
+{
+	@if $side != ''
+	{ margin-#{$side} : $size; }
+	@else
+	{ margin : $size;}
+}
+@mixin padding($side, $size)
+{
+	@if $side != ''
+	{ padding-#{$side} : $size; }
+	@else
+	{ padding : $size;}
+}
+
+/* Text-align */
+@mixin txtAlign($val)
+{
+	text-align : $val;
+}
+
+/* Text-transform */
+@mixin textTransform($val)
+{
+	text-transform : $val;
+}
+
+/* Transform */
+@mixin transform($val)
+{
+	transform : $val;
+}
+
+/* Transfomr-origin */
+@mixin transformOrigin($val)
+{
+	transform-origin: $val;
+}
+
+/* Filter */
+@mixin filter($val)
+{
+	filter : $val;
+}
+
+/* Flex css */
+@mixin flexCss($prop, $val)
+{
+	#{$prop} : $val;
+	-ms-#{$prop} : $val;
+	-webkit-#{$prop} : $val;
+}
+
+/* Order */
+@mixin order($val)
+{
+	-webkit-box-ordinal-group: $val+1;
+    -ms-flex-order: $val;
+    order: $val;
+}
+
+/* Position */
+@mixin position($val)
+{
+	position : $val;
+}
+@mixin posCoord($side, $margin)
+{
+	#{$side} : $margin;
+}
+
+/* Z-index */
+@mixin zIndex($val)
+{
+	z-index : $val;
+}
+
+/* Text-decoration */
+@mixin textDecoration($val)
+{
+	text-decoration : $val;
+}
+
+/* Border */
+@mixin borderWidth($side, $size)
+{
+	@if $side != ''
+	{ border-#{$side}-width : $size; }
+	@else
+	{ border-width : $size; }
+}
+@mixin borderRadius($x, $y, $size)
+{
+	@if $x != '' and $y != ''
+	{ border-#{$y}-#{$x}-radius : $size; }
+	@else
+	{ border-radius : $size; }
+}
+@mixin borderStyle($side, $style)
+{
+	@if $side != ''
+	{ border-#{$side}-style : $style; }
+	@else
+	{ border-style : $style; }
+	
+}
+@mixin borderColor($side,$color)
+{
+	@if $side != ''
+	{ border-#{$side}-color : $color; }
+	@else
+	{ border-color : $color; }
+}
+
+/* Font */
+@mixin fontSize($size)
+{
+	font-size : $size;
+}
+@mixin fontWeight($size)
+{
+	font-weight : $size;
+}
+@mixin lineHeight($size)
+{
+	line-height : $size;
+}
+
+/* Float */
+@mixin float($val)
+{
+	float : $val;
+}
+
+/* box-shadow */
+@mixin boxShadow($color, $opacity)
+{
+	box-shadow : 5px 5px 10px rgba(red(darken($color, 20%)), blue(darken($color, 20%)), green(darken($color, 20%)), $opacity);
+}
+
+/* Visibility & opacity */
+@mixin visibility($val)
+{
+	visibility : $val; 
+}
+@mixin opacity($val)
+{
+	opacity : $val; 
+}
+
+/* Overflow */
+@mixin overflow($val)
+{
+	overflow : $val;
+}
+
+/* Display */
+@mixin display($val)
+{
+	display : $val; 
+}
+
+/* cursor */
+@mixin cursor($val)
+{
+	cursor : $val;
+}
+
+/* List style */
+@mixin listStyle($val)
+{
+	list-style : $val;
+}
+
+/* Gradient */
+@mixin gradient($from, $to, $angle : 0)
+{
+	background : linear-gradient($angle, $from, $to);
+}
+
+/* Transition */
+@mixin transition($prop, $time : '')
+{
+	@if $time != ''
+	{
+		transition : unquote(str-replace(to-string($prop), ' ', ' '+$time+', ')+' '+$time);
+	}
+	@else
+	{
+		transition : unquote(str-replace(to-string($prop), ' ', ' '+$timeTrans+', ')+' '+$timeTrans);
+	}
+}
+
+/* Keyframes */
+@mixin keyframes($name)
+{
+	@-webkit-keyframes #{$name}
+	{
+		@content; 
+	}
+	@-moz-keyframes #{$name}
+	{
+		@content;
+	}
+	@-ms-keyframes #{$name}
+	{
+		@content;
+	}
+	@keyframes #{$name}
+	{
+		@content;
+	} 
+}
+
+/* Auto col */
+@mixin autoCol()
+{
+	-ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+}
+
+/* Break corner */
+@mixin break-corner($x, $xPos, $y, $yPos, $deg, $width, $height, $color, $where)
+{
+	&::#{$where}
+	{
+		background: $color;
+		content: "";
+		#{$x} : $xPos;
+		#{$y} : $yPos;
+		width: $width;
+		height: $height;
+		position: absolute;
+		transform: skew($deg, 0deg);
+	}
+}
+
+
+
+
+
+
+/*****************************
+
+	Animation
+
+*****************************/
+@mixin buttonText()
+{
+	$colorShadow : black;
+
+	@include cursor(pointer);
+	@include transition(filter transform);
+
+	&:hover
+	{
+		@include filter( drop-shadow(2px 2px 2px rgba(red(darken($colorShadow,20%)), blue(darken($colorShadow,20%)), green(darken($colorShadow,20%)), 0.5)) );
+		//@include transform(scale(1,1));
+	}
+
+	&:active
+	{
+		@include filter( drop-shadow(0 0 0 rgba(red(darken($colorShadow,20%)), blue(darken($colorShadow,20%)), green(darken($colorShadow,20%)), 0.5)) );
+		//@include transform(scale(0.5,0.5));
+	}
+}

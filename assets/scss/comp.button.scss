@@ -1,0 +1,58 @@
+/* Button */
+
+.#{$prefixe}-back-button
+{
+	@extend %color-black;
+	@extend %txt-1;
+
+	@include cursor(pointer);
+	@include textDecoration(none);
+	@include transition(color);
+
+	&:hover
+	{
+		@extend %color-red-80;
+	}
+}
+
+.#{$prefixe}-button-secondary
+{
+	@extend %color-white;
+	@extend %width-100;
+	@extend %txt-center;
+	@extend %bg-black;
+	@extend %txt-1;
+	@extend %txt-light;
+	@extend %pt-2;
+	@extend %pb-2;
+	@extend %mt-1;
+	@extend %mb-2;
+
+	@include cursor(pointer);
+	@include transition(background);
+
+	&:hover
+	{
+		@extend %bg-black-80;
+	}
+
+	i,
+	span,
+	svg
+	{
+		@extend %color-red;
+		@extend %mr-2;
+	}
+}
+
+/* Close button */
+.#{$prefixe}-close
+{
+	@include transition(color);
+	@include cursor(pointer);
+
+	&:hover
+	{
+		@extend %color-black-80;
+	}
+}
